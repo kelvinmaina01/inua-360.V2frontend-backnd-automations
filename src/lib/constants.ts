@@ -6,7 +6,7 @@ export const AGENTS = [
     name: 'Profile Builder',
     nameSwahili: 'Mjenzi wa Wasifu',
     icon: 'user-circle',
-    color: '#F25020',
+    color: '#FA6F20',
     description: 'Builds and maintains your 360° SME profile',
     descriptionSwahili: 'Inajenga na kudumisha wasifu wako wa biashara',
     status: 'active' as const
@@ -56,7 +56,7 @@ export const AGENTS = [
     name: 'Multi-Agent Supervisor',
     nameSwahili: 'Msimamizi wa Mawakala',
     icon: 'cpu',
-    color: '#F25020',
+    color: '#FA6F20',
     description: 'Coordinates all agents and manages autonomy',
     descriptionSwahili: 'Inaratibu mawakala wote na kusimamia kujitegemea',
     status: 'idle' as const

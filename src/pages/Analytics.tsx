@@ -64,7 +64,7 @@ export function Analytics({ language, onNavigate }: AnalyticsProps) {
 
   // Sector Distribution
   const sectorData = [
-    { name: 'Technology', value: 35, color: '#F25020' },
+    { name: 'Technology', value: 35, color: '#FA6F20' },
     { name: 'Agriculture', value: 25, color: '#34C759' },
     { name: 'Retail', value: 20, color: '#FFD60A' },
     { name: 'Services', value: 20, color: '#00B8A9' }
@@ -72,7 +72,7 @@ export function Analytics({ language, onNavigate }: AnalyticsProps) {
 
   // Report Scores
   const reportScores = [
-    { name: 'SME', score: 85, color: '#F25020' },
+    { name: 'SME', score: 85, color: '#FA6F20' },
     { name: 'Funding', score: 78, color: '#FFD60A' },
     { name: 'Compliance', score: 92, color: '#34C759' },
     { name: 'Growth', score: 88, color: '#00B8A9' }
@@ -87,7 +87,7 @@ export function Analytics({ language, onNavigate }: AnalyticsProps) {
       status: 'completed',
       date: 'Nov 9, 2025',
       score: 85,
-      color: '#F25020'
+      color: '#FA6F20'
     },
     {
       id: 2,
@@ -293,9 +293,9 @@ export function Analytics({ language, onNavigate }: AnalyticsProps) {
                 <Line
                   type="monotone"
                   dataKey="revenue"
-                  stroke="#F25020"
+                  stroke="#FA6F20"
                   strokeWidth={3}
-                  dot={{ fill: '#F25020', r: 4 }}
+                  dot={{ fill: '#FA6F20', r: 4 }}
                   name={language === 'sw' ? 'Mapato' : 'Revenue'}
                 />
                 <Line
@@ -324,8 +324,8 @@ export function Analytics({ language, onNavigate }: AnalyticsProps) {
               <AreaChart data={teamData}>
                 <defs>
                   <linearGradient id="colorTeam" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#F25020" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#F25020" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#FA6F20" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#FA6F20" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
@@ -347,7 +347,7 @@ export function Analytics({ language, onNavigate }: AnalyticsProps) {
                 <Area
                   type="monotone"
                   dataKey="count"
-                  stroke="#F25020"
+                  stroke="#FA6F20"
                   fill="url(#colorTeam)"
                   strokeWidth={3}
                 />

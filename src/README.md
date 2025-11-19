@@ -5,7 +5,7 @@ A comprehensive, production-ready web application designed for Kenyan SMEs with 
 ## 🎨 Design System
 
 ### Primary Brand Color
-- **Inua Orange**: `#F25020` - Modern, energetic color representing innovation and growth
+- **Inua Orange**: `#FA6F20` - Vibrant, energetic color representing innovation and growth
 - Complete with semantic colors: Success Green, Matatu Yellow, Warning Orange
 
 ### Key Features
@@ -47,12 +47,12 @@ A comprehensive, production-ready web application designed for Kenyan SMEs with 
 
 ## 🤖 Six AI Agents
 
-1. **Profile Builder** (#F25020) - Builds 360° SME profile
+1. **Profile Builder** (#FA6F20) - Builds 360° SME profile
 2. **Compliance Tracker** (#34C759) - Monitors licenses & permits
 3. **Funding Navigator** (#FFD60A) - Finds funding opportunities
 4. **Cash-Flow Forecaster** (#007AFF) - Predicts cash flow
 5. **Application Assistant** (#FF9500) - Prepares applications
-6. **Multi-Agent Supervisor** (#F25020) - Coordinates all agents
+6. **Multi-Agent Supervisor** (#FA6F20) - Coordinates all agents
 
 ## 📱 Complete Screens
 
@@ -126,5 +126,5 @@ Built with love for Kenyan entrepreneurs, from Nairobi to Eldoret, Mombasa to Ki
 ---
 
 **Tech Stack:** React, TypeScript, Tailwind CSS, Recharts, Shadcn/ui, Lucide Icons
-**Primary Color:** #F25020 (Inua Orange)
+**Primary Color:** #FA6F20 (Inua Orange)
 **Version:** 1.0.0

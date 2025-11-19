@@ -18,12 +18,12 @@ const AGENT_ICONS = {
 };
 
 const AGENT_COLORS = {
-  profile: 'hsl(13 100% 54%)',
+  profile: '#FA6F20',
   compliance: 'hsl(145 63% 49%)',
   funding: 'hsl(48 100% 52%)',
   cashflow: 'hsl(211 100% 50%)',
   application: 'hsl(32 100% 50%)',
-  supervisor: 'hsl(13 100% 54%)'
+  supervisor: '#FA6F20'
 };
 
 export function AgentAvatar({ agentId, size = 'md', status = 'idle', showPulse = false }: AgentAvatarProps) {

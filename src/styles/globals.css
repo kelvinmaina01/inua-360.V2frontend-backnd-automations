@@ -5,7 +5,7 @@
 @layer base {
   :root {
     /* Inua 360 Design System Colors */
-    --inua-orange: 13 100% 54%;
+    --inua-orange: 18 98% 56%;
     --nairobi-teal: 181 100% 36%;
     --matatu-yellow: 48 100% 52%;
     --success-green: 145 63% 49%;
@@ -31,19 +31,19 @@
     --card-foreground: 0 0% 9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 9%;
-    --primary: 13 100% 54%;
+    --primary: 18 98% 56%;
     --primary-foreground: 0 0% 100%;
     --secondary: 48 100% 52%;
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
-    --accent: 13 100% 54%;
+    --accent: 18 98% 56%;
     --accent-foreground: 0 0% 100%;
     --destructive: 4 100% 60%;
     --destructive-foreground: 0 0% 100%;
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 13 100% 54%;
+    --ring: 18 98% 56%;
     --radius: 0.5rem;
     --success: 145 63% 49%;
     --warning: 32 100% 50%;
@@ -56,19 +56,19 @@
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 13 100% 54%;
+    --primary: 18 98% 56%;
     --primary-foreground: 0 0% 100%;
     --secondary: 48 100% 52%;
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 64%;
-    --accent: 13 100% 54%;
+    --accent: 18 98% 56%;
     --accent-foreground: 0 0% 100%;
     --destructive: 4 100% 60%;
     --destructive-foreground: 0 0% 100%;
     --border: 0 0% 15%;
     --input: 0 0% 15%;
-    --ring: 13 100% 54%;
+    --ring: 18 98% 56%;
     --success: 145 63% 49%;
     --warning: 32 100% 50%;
   }
