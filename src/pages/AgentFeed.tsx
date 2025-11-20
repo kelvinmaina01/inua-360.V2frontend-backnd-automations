@@ -6,11 +6,51 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { AgentAvatar } from '../components/AgentAvatar';
 import { AGENTS } from '../lib/constants';
 import { MOCK_AGENT_ACTIVITIES } from '../lib/mock-data';
-import { Filter, ThumbsUp, Undo, CheckCircle, AlertCircle, Info, Clock } from 'lucide-react';
+import { Filter, ThumbsUp, Undo, CheckCircle, AlertCircle, Info, Clock, TrendingUp, Smartphone } from 'lucide-react';
 
 interface AgentFeedProps {
   language: 'en' | 'sw';
 }
+
+// M-Pesa specific activities
+const MPESA_ACTIVITIES = [
+  {
+    id: 'mpesa-1',
+    agentId: 'financials',
+    timestamp: '06:14 AM',
+    date: 'Today',
+    title: 'Synced M-Pesa transactions',
+    titleSw: 'Miamala ya M-Pesa imesasishwa',
+    description: 'Synced 487 transactions · Revenue this month KES 2.8M ↑12%',
+    descriptionSw: 'Imesasisha miamala 487 · Mapato mwezi huu KES 2.8M ↑12%',
+    status: 'success',
+    actionable: false
+  },
+  {
+    id: 'mpesa-2',
+    agentId: 'financials',
+    timestamp: '11:42 PM',
+    date: 'Yesterday',
+    title: 'Logged withdrawal as stock purchase',
+    titleSw: 'Imetambua uondoaji kama ununuzi wa stoki',
+    description: 'Logged KES 180k withdrawal as stock purchase',
+    descriptionSw: 'Imerekodi uondoaji wa KES 180k kama ununuzi wa stoki',
+    status: 'success',
+    actionable: false
+  },
+  {
+    id: 'mpesa-3',
+    agentId: 'cashflow',
+    timestamp: '02:31 AM',
+    date: 'Yesterday',
+    title: 'Surplus detected & optimized',
+    titleSw: 'Ziada imegundulika na kuboreshwa',
+    description: 'KES 680k surplus in 21 days – moved KES 200k to Savings Pocket',
+    descriptionSw: 'Ziada ya KES 680k katika siku 21 – imehamisha KES 200k kwa Mkoba wa Akiba',
+    status: 'success',
+    actionable: false
+  }
+];
 
 export function AgentFeed({ language }: AgentFeedProps) {
   const [filterAgent, setFilterAgent] = useState<string>('all');
@@ -28,7 +68,7 @@ export function AgentFeed({ language }: AgentFeedProps) {
     });
   };
 
-  const filteredActivities = MOCK_AGENT_ACTIVITIES.filter(
+  const filteredActivities = [...MPESA_ACTIVITIES, ...MOCK_AGENT_ACTIVITIES].filter(
     (activity) => filterAgent === 'all' || activity.agentId === filterAgent
   );
 

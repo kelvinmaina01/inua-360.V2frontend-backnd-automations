@@ -6,7 +6,7 @@ export const AGENTS = [
     name: 'Profile Builder',
     nameSwahili: 'Mjenzi wa Wasifu',
     icon: 'user-circle',
-    color: '#FA6F20',
+    color: '#FA6915',
     description: 'Builds and maintains your 360° SME profile',
     descriptionSwahili: 'Inajenga na kudumisha wasifu wako wa biashara',
     status: 'active' as const
@@ -36,7 +36,7 @@ export const AGENTS = [
     name: 'Cash-Flow Forecaster',
     nameSwahili: 'Mtabiri wa Mtiririko wa Fedha',
     icon: 'trending-up',
-    color: '#007AFF',
+    color: '#00B8A9',
     description: 'Predicts future cash flow and identifies gaps',
     descriptionSwahili: 'Inatabiri mtiririko wa fedha na pengo',
     status: 'active' as const
@@ -56,10 +56,20 @@ export const AGENTS = [
     name: 'Multi-Agent Supervisor',
     nameSwahili: 'Msimamizi wa Mawakala',
     icon: 'cpu',
-    color: '#FA6F20',
+    color: '#FA6915',
     description: 'Coordinates all agents and manages autonomy',
     descriptionSwahili: 'Inaratibu mawakala wote na kusimamia kujitegemea',
     status: 'idle' as const
+  },
+  {
+    id: 'financials',
+    name: 'Financials Agent',
+    nameSwahili: 'Wakala wa Fedha',
+    icon: 'smartphone',
+    color: '#00B8A9',
+    description: 'Syncs M-Pesa transactions and tracks financial health',
+    descriptionSwahili: 'Inasawazisha miamala ya M-Pesa na kufuatilia afya ya fedha',
+    status: 'active' as const
   }
 ];
 

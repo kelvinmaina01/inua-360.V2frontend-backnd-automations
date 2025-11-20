@@ -14,16 +14,18 @@ const AGENT_ICONS = {
   funding: Wallet,
   cashflow: TrendingUp,
   application: FileText,
-  supervisor: Cpu
+  supervisor: Cpu,
+  financials: Bot
 };
 
 const AGENT_COLORS = {
-  profile: '#FA6F20',
+  profile: '#FA6915',
   compliance: 'hsl(145 63% 49%)',
   funding: 'hsl(48 100% 52%)',
-  cashflow: 'hsl(211 100% 50%)',
+  cashflow: '#00B8A9',
   application: 'hsl(32 100% 50%)',
-  supervisor: '#FA6F20'
+  supervisor: '#FA6915',
+  financials: '#00B8A9'
 };
 
 export function AgentAvatar({ agentId, size = 'md', status = 'idle', showPulse = false }: AgentAvatarProps) {

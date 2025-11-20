@@ -18,7 +18,11 @@ import {
   Bell,
   Download,
   Power,
-  ChevronRight
+  ChevronRight,
+  Link,
+  Clock,
+  Check,
+  Plus
 } from 'lucide-react';
 
 interface SettingsProps {
@@ -132,6 +136,101 @@ export function Settings({ language, darkMode, onLanguageChange, onDarkModeToggl
               </div>
             </div>
             <Switch checked={darkMode} onCheckedChange={onDarkModeToggle} />
+          </div>
+        </div>
+      </Card>
+
+      {/* Connected Accounts - NEW M-PESA SECTION */}
+      <Card className="p-6">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-2 bg-secondary/10 rounded-lg">
+            <Link className="h-5 w-5 text-secondary" />
+          </div>
+          <div>
+            <h3>{language === 'sw' ? 'Akaunti Zilizounganishwa' : 'Connected Accounts'}</h3>
+            <p className="text-xs text-muted-foreground">
+              {language === 'sw'
+                ? 'Simamia miunganisho ya fedha zako'
+                : 'Manage your financial connections'}
+            </p>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          {/* M-Pesa Connected */}
+          <div className="p-4 border-2 border-secondary/20 bg-secondary/5 rounded-lg">
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <div className="flex items-start gap-3 flex-1">
+                <div className="p-2 bg-secondary rounded-lg">
+                  <Smartphone className="h-5 w-5 text-white" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h4>M-Pesa</h4>
+                    <Badge className="bg-secondary text-secondary-foreground">
+                      <Check className="h-3 w-3 mr-1" />
+                      {language === 'sw' ? 'Imeunganishwa' : 'Connected'}
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    {language === 'sw' 
+                      ? 'Till 403321 · Binafsi 07xxxxxxx'
+                      : 'Till 403321 · Personal 07xxxxxxx'}
+                  </p>
+                  <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
+                    <Clock className="h-3 w-3" />
+                    {language === 'sw' 
+                      ? 'Ilisasishwa dakika 2 zilizopita'
+                      : 'Last sync 2 mins ago'}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" className="flex-1">
+                {language === 'sw' ? 'Sasisha Sasa' : 'Sync Now'}
+              </Button>
+              <Button variant="destructive" size="sm">
+                {language === 'sw' ? 'Ondoa' : 'Revoke'}
+              </Button>
+            </div>
+          </div>
+
+          {/* Equity Bank - Not Connected */}
+          <div className="p-4 border border-border rounded-lg opacity-60">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-start gap-3 flex-1">
+                <div className="p-2 bg-muted rounded-lg">
+                  <Smartphone className="h-5 w-5 text-muted-foreground" />
+                </div>
+                <div>
+                  <h4>{language === 'sw' ? 'Benki ya Equity' : 'Equity Bank'}</h4>
+                  <p className="text-xs text-muted-foreground">
+                    {language === 'sw' 
+                      ? 'Hiari - kwa mipango ya baadaye'
+                      : 'Optional - for future plans'}
+                  </p>
+                </div>
+              </div>
+              <Button variant="outline" size="sm" className="gap-2">
+                <Plus className="h-4 w-4" />
+                {language === 'sw' ? 'Unganisha' : 'Connect'}
+              </Button>
+            </div>
+          </div>
+
+          {/* Quick Log Toggle */}
+          <Separator />
+          <div className="flex items-center justify-between pt-2">
+            <div>
+              <Label>{language === 'sw' ? 'Rekodi Haraka' : 'Quick Log'}</Label>
+              <p className="text-xs text-muted-foreground">
+                {language === 'sw'
+                  ? 'Niulize kurekodi mauzo ya taslimu kila siku'
+                  : 'Ask me to log cash sales daily'}
+              </p>
+            </div>
+            <Switch defaultChecked />
           </div>
         </div>
       </Card>
