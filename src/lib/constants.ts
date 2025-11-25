@@ -70,6 +70,16 @@ export const AGENTS = [
     description: 'Syncs M-Pesa transactions and tracks financial health',
     descriptionSwahili: 'Inasawazisha miamala ya M-Pesa na kufuatilia afya ya fedha',
     status: 'active' as const
+  },
+  {
+    id: 'tender',
+    name: 'Tender Agent',
+    nameSwahili: 'Wakala wa Zabuni',
+    icon: 'briefcase',
+    color: '#8e24aa',
+    description: 'Finds and matches you with relevant tenders and contracts',
+    descriptionSwahili: 'Inatafuta na kukulinganisha na zabuni na kandarasi',
+    status: 'active' as const
   }
 ];
 
