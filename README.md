@@ -1,4 +1,4 @@
-````markdown name=README.md
+
 # Inua360 v2.0
 
 _The Modular AI Platform for Powering Kenyan SMEs_
@@ -155,4 +155,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 For questions or demo requests, please contact the maintainer or raise a GitHub issue.
 
-````
+
