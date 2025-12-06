@@ -13,8 +13,9 @@ Inua 360 is Kenya's first autonomous AI co-pilot for SMEs, designed for 2026. Th
 ## Color Palette
 
 ### Primary Colors
-- **Nairobi Teal**: `#00B8A9` / `hsl(181 100% 36%)` - Primary brand color
-- **Matatu Yellow**: `#FFD60A` / `hsl(48 100% 52%)` - Accent/secondary color
+- **Inua Orange**: `#FA7021` / `hsl(22 96% 55%)` - Primary brand color
+- **Nairobi Teal**: `#00B8A9` / `hsl(174 100% 36%)` - Secondary/accent color
+- **Matatu Yellow**: `#FFD60A` / `hsl(48 100% 52%)` - Accent/tertiary color
 
 ### Semantic Colors
 - **Success Green**: `#34C759` / `hsl(145 63% 49%)`
@@ -86,8 +87,8 @@ Do NOT use Tailwind font size/weight classes unless specifically requested. Typo
 - Shadow: Subtle on hover
 
 ### Buttons
-- **Primary**: Nairobi Teal background, white text
-- **Secondary**: Matatu Yellow background, black text
+- **Primary**: Inua Orange background, white text
+- **Secondary**: Nairobi Teal background, white text
 - **Outline**: Border only, transparent background
 - **Ghost**: No border, transparent background
 - Touch-friendly sizing (min 48px height on mobile)
@@ -127,7 +128,7 @@ Do NOT use Tailwind font size/weight classes unless specifically requested. Typo
 ### Six Core Agents
 1. **Profile Builder** (Mjenzi wa Wasifu)
    - Icon: UserCircle
-   - Color: Nairobi Teal (#00B8A9)
+   - Color: Inua Orange (#FA7021)
    - Function: Builds and maintains 360° SME profile
 
 2. **Compliance Tracker** (Mfuatiliaji wa Sheria)

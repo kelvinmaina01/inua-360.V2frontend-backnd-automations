@@ -14,7 +14,7 @@ import { Settings } from './pages/Settings';
 import { Button } from './components/ui/button';
 import { Wifi, WifiOff, Menu } from 'lucide-react';
 import { Toaster } from './components/ui/sonner';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 export default function App() {
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(false);
@@ -93,7 +93,7 @@ export default function App() {
     setLanguage(data.language || 'en');
     setAutonomyMode(data.autonomyEnabled);
     setHasCompletedOnboarding(true);
-    
+
     toast.success(
       data.language === 'sw' ? 'Karibu Inua 360!' : 'Welcome to Inua 360!',
       {
@@ -236,25 +236,25 @@ export default function App() {
                       ? language === 'sw'
                         ? 'Shughuli za Mawakala'
                         : 'Agent Feed'
-                    : currentRoute === '/money'
-                      ? language === 'sw'
-                        ? 'Fedha'
-                        : 'Money'
-                      : currentRoute === '/compliance'
+                      : currentRoute === '/money'
                         ? language === 'sw'
-                          ? 'Kinga'
-                          : 'Compliance'
-                        : currentRoute === '/profile'
+                          ? 'Fedha'
+                          : 'Money'
+                        : currentRoute === '/compliance'
                           ? language === 'sw'
-                            ? 'Wasifu'
-                            : 'Profile'
-                          : currentRoute === '/chat'
+                            ? 'Kinga'
+                            : 'Compliance'
+                          : currentRoute === '/profile'
                             ? language === 'sw'
-                              ? 'Ongea'
-                              : 'Chat'
-                            : language === 'sw'
-                              ? 'Mipangilio'
-                              : 'Settings'}
+                              ? 'Wasifu'
+                              : 'Profile'
+                            : currentRoute === '/chat'
+                              ? language === 'sw'
+                                ? 'Ongea'
+                                : 'Chat'
+                              : language === 'sw'
+                                ? 'Mipangilio'
+                                : 'Settings'}
               </h2>
             </div>
             <div className="flex items-center gap-4">
