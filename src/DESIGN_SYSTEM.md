@@ -413,5 +413,5 @@ toast.success(
 
 ---
 
-**Designed with ❤️ for Kenyan entrepreneurs**
+*
 **Imetengenezwa kwa upendo kwa wajasiriamali wa Kenya 🇰🇪**

@@ -126,5 +126,5 @@ Built with love for Kenyan entrepreneurs, from Nairobi to Eldoret, Mombasa to Ki
 ---
 
 **Tech Stack:** React, TypeScript, Tailwind CSS, Recharts, Shadcn/ui, Lucide Icons
-**Primary Color:** #FA6F20 (Inua Orange)
+**Primary Color:** #ed6b20ff (Inua Orange)
 **Version:** 1.0.0
