@@ -7,6 +7,8 @@ import { Home } from './pages/Home';
 import { Analytics } from './pages/Analytics';
 import { AgentFeed } from './pages/AgentFeed';
 import { Money } from './pages/Money';
+import { LoanReadiness } from './pages/LoanReadiness';
+import { ConnectMpesa } from './pages/ConnectMpesa';
 import { Compliance } from './pages/Compliance';
 import { Profile } from './pages/Profile';
 import { Chat } from './pages/Chat';
@@ -162,6 +164,10 @@ export default function App() {
         return <AgentFeed language={language} />;
       case '/money':
         return <Money language={language} onNavigate={handleNavigate} />;
+      case '/loan-readiness':
+        return <LoanReadiness language={language} onNavigate={handleNavigate} />;
+      case '/connect-mpesa':
+        return <ConnectMpesa language={language} onNavigate={handleNavigate} />;
       case '/compliance':
         return <Compliance language={language} onNavigate={handleNavigate} />;
       case '/profile':
@@ -240,6 +246,14 @@ export default function App() {
                         ? language === 'sw'
                           ? 'Fedha'
                           : 'Money'
+                        : currentRoute === '/loan-readiness'
+                          ? language === 'sw'
+                            ? 'Uwezo wa Mkopo'
+                            : 'Loan Readiness'
+                        : currentRoute === '/connect-mpesa'
+                          ? language === 'sw'
+                            ? 'Unganisha M-Pesa'
+                            : 'Connect M-Pesa'
                         : currentRoute === '/compliance'
                           ? language === 'sw'
                             ? 'Kinga'
