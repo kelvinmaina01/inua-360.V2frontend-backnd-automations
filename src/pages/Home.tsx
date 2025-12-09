@@ -2,8 +2,9 @@ import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { AgentAvatar } from '../components/AgentAvatar';
+import { FinancialKPIs } from '../components/FinancialKPIs';
 import { AGENTS, MOCK_USER } from '../lib/constants';
-import { AlertCircle, TrendingUp, CheckCircle, Clock, Wifi, WifiOff, MessageCircle } from 'lucide-react';
+import { AlertCircle, TrendingUp, CheckCircle, Clock, Wifi, WifiOff, MessageCircle, Smartphone, ArrowRight } from 'lucide-react';
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import { BarChart3, ArrowUpRight } from 'lucide-react';
 
@@ -30,6 +31,9 @@ export function Home({ language, onNavigate, isOnline }: HomeProps) {
     month: 'short',
     year: 'numeric'
   });
+
+  // Mock M-Pesa connection status - will be replaced with real API call
+  const isMpesaConnected = false; // Change to true when user connects
 
   return (
     <div className="space-y-6">
@@ -98,6 +102,74 @@ export function Home({ language, onNavigate, isOnline }: HomeProps) {
           {language === 'sw' ? 'Mtabiri wa Mtiririko wa Fedha' : 'Cash-Flow Forecaster'}
         </div>
       </Card>
+
+      {/* M-Pesa Connection Status */}
+      {!isMpesaConnected && (
+        <Card className="p-6 border-l-4 border-l-blue-500 bg-blue-50/50">
+          <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+            <div className="flex items-start gap-4 flex-1">
+              <div className="p-3 bg-blue-100 rounded-lg">
+                <Smartphone className="h-6 w-6 text-blue-600" />
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-blue-900">
+                    {language === 'sw' ? 'Unganisha M-Pesa yako' : 'Connect Your M-Pesa'}
+                  </h3>
+                  <Badge variant="outline" className="border-blue-300 text-blue-700">
+                    {language === 'sw' ? 'Muhimu' : 'Required'}
+                  </Badge>
+                </div>
+                <p className="text-sm text-blue-700">
+                  {language === 'sw'
+                    ? 'Unganisha akaunti yako ya M-Pesa ili kufuatilia mtiririko wa fedha kiotomatiki na kupata uwezo wa mkopo'
+                    : 'Connect your M-Pesa business account to automatically track cash flow and get loan readiness insights'}
+                </p>
+                <div className="flex items-center gap-2 text-xs text-blue-600">
+                  <AgentAvatar agentId="financial" size="sm" />
+                  {language === 'sw' ? 'Mshauri wa Kifedha' : 'Financial Advisor'}
+                </div>
+              </div>
+            </div>
+            <Button
+              className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700"
+              onClick={() => onNavigate('/connect-mpesa')}
+            >
+              {language === 'sw' ? 'Unganisha Sasa' : 'Connect Now'}
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
+        </Card>
+      )}
+
+      {/* M-Pesa Connected Status */}
+      {isMpesaConnected && (
+        <Card className="p-4 border-l-4 border-l-green-500 bg-green-50/50">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <CheckCircle className="h-5 w-5 text-green-600" />
+              <div>
+                <p className="font-medium text-green-900">
+                  {language === 'sw' ? 'M-Pesa Imeunganishwa' : 'M-Pesa Connected'}
+                </p>
+                <p className="text-xs text-green-700">
+                  {language === 'sw'
+                    ? 'Miamala inasawazishwa kila siku saa 1 asubuhi'
+                    : 'Transactions sync daily at 7 AM'}
+                </p>
+              </div>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onNavigate('/money')}
+              className="text-green-700 hover:text-green-900 hover:bg-green-100"
+            >
+              {language === 'sw' ? 'Tazama Miamala' : 'View Transactions'}
+            </Button>
+          </div>
+        </Card>
+      )}
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -197,6 +269,19 @@ export function Home({ language, onNavigate, isOnline }: HomeProps) {
             {language === 'sw' ? 'Angalia Chaguo' : 'View Options'}
           </Button>
         </Card>
+      </div>
+
+      {/* Financial Health KPIs */}
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <h3>
+            {language === 'sw' ? 'Afya ya Fedha' : 'Financial Health'}
+          </h3>
+          <Button variant="ghost" size="sm" onClick={() => onNavigate('/loan-readiness')}>
+            {language === 'sw' ? 'Ripoti Kamili' : 'Full Report'}
+          </Button>
+        </div>
+        <FinancialKPIs language={language} onNavigate={onNavigate} />
       </div>
 
       {/* Today's Agent Actions */}
