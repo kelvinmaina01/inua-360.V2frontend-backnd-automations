@@ -86,14 +86,66 @@ export const KENYAN_SECTORS = [
 ];
 
 export const KENYAN_COUNTIES = [
-  { value: 'nairobi', label: 'Nairobi', flag: '🏙️' },
-  { value: 'mombasa', label: 'Mombasa', flag: '🏖️' },
-  { value: 'kisumu', label: 'Kisumu', flag: '🐟' },
-  { value: 'nakuru', label: 'Nakuru', flag: '🦩' },
-  { value: 'eldoret', label: 'Uasin Gishu (Eldoret)', flag: '🏃' },
-  { value: 'machakos', label: 'Machakos', flag: '⛰️' },
+  { value: 'baringo', label: 'Baringo', flag: '🏞️' },
+  { value: 'bomet', label: 'Bomet', flag: '🍵' },
+  { value: 'bungoma', label: 'Bungoma', flag: '🌽' },
+  { value: 'busia', label: 'Busia', flag: '🛃' },
+  { value: 'elgeyo_marakwet', label: 'Elgeyo-Marakwet', flag: '🏃' },
+  { value: 'embu', label: 'Embu', flag: '🌿' },
+  { value: 'garissa', label: 'Garissa', flag: '🐪' },
+  { value: 'homa_bay', label: 'Homa Bay', flag: '🐟' },
+  { value: 'isiolo', label: 'Isiolo', flag: '🦎' },
+  { value: 'kajiado', label: 'Kajiado', flag: '🦒' },
+  { value: 'kakamega', label: 'Kakamega', flag: '🌳' },
+  { value: 'kericho', label: 'Kericho', flag: '🍵' },
   { value: 'kiambu', label: 'Kiambu', flag: '☕' },
-  { value: 'kakamega', label: 'Kakamega', flag: '🌳' }
+  { value: 'kilifi', label: 'Kilifi', flag: '🌴' },
+  { value: 'kirinyaga', label: 'Kirinyaga', flag: '🍚' },
+  { value: 'kisii', label: 'Kisii', flag: '🍌' },
+  { value: 'kisumu', label: 'Kisumu', flag: '🐟' },
+  { value: 'kitui', label: 'Kitui', flag: '🏜️' },
+  { value: 'kwale', label: 'Kwale', flag: '🏖️' },
+  { value: 'laikipia', label: 'Laikipia', flag: '🦏' },
+  { value: 'lamu', label: 'Lamu', flag: '⛵' },
+  { value: 'machakos', label: 'Machakos', flag: '⛰️' },
+  { value: 'makueni', label: 'Makueni', flag: '🍈' },
+  { value: 'mandera', label: 'Mandera', flag: '🏜️' },
+  { value: 'marsabit', label: 'Marsabit', flag: '🌋' },
+  { value: 'meru', label: 'Meru', flag: '🌾' },
+  { value: 'migori', label: 'Migori', flag: '⛏️' },
+  { value: 'mombasa', label: 'Mombasa', flag: '🏖️' },
+  { value: 'muranga', label: "Murang'a", flag: '☕' },
+  { value: 'nairobi', label: 'Nairobi', flag: '🏙️' },
+  { value: 'nakuru', label: 'Nakuru', flag: '🦩' },
+  { value: 'nandi', label: 'Nandi', flag: '🏃' },
+  { value: 'narok', label: 'Narok', flag: '🦁' },
+  { value: 'nyamira', label: 'Nyamira', flag: '🍵' },
+  { value: 'nyandarua', label: 'Nyandarua', flag: '🥔' },
+  { value: 'nyeri', label: 'Nyeri', flag: '🏔️' },
+  { value: 'samburu', label: 'Samburu', flag: '🦓' },
+  { value: 'siaya', label: 'Siaya', flag: '🎣' },
+  { value: 'taita_taveta', label: 'Taita-Taveta', flag: '🏔️' },
+  { value: 'tana_river', label: 'Tana River', flag: '🐊' },
+  { value: 'tharaka_nithi', label: 'Tharaka-Nithi', flag: '🌾' },
+  { value: 'trans_nzoia', label: 'Trans-Nzoia', flag: '🌽' },
+  { value: 'turkana', label: 'Turkana', flag: '🐪' },
+  { value: 'uasin_gishu', label: 'Uasin Gishu', flag: '🏃' },
+  { value: 'vihiga', label: 'Vihiga', flag: '🌳' },
+  { value: 'wajir', label: 'Wajir', flag: '🐫' },
+  { value: 'west_pokot', label: 'West Pokot', flag: '⛰️' }
+];
+
+// Revenue ranges for Kenyan SMEs (in KES)
+export const REVENUE_RANGES = [
+  { value: 'below_10k', label: 'Below KES 10,000', labelSwahili: 'Chini ya KES 10,000', min: 0, max: 10000 },
+  { value: '10k_30k', label: 'KES 10,000 - 30,000', labelSwahili: 'KES 10,000 - 30,000', min: 10000, max: 30000 },
+  { value: '30k_50k', label: 'KES 30,000 - 50,000', labelSwahili: 'KES 30,000 - 50,000', min: 30000, max: 50000 },
+  { value: '50k_100k', label: 'KES 50,000 - 100,000', labelSwahili: 'KES 50,000 - 100,000', min: 50000, max: 100000 },
+  { value: '100k_250k', label: 'KES 100,000 - 250,000', labelSwahili: 'KES 100,000 - 250,000', min: 100000, max: 250000 },
+  { value: '250k_500k', label: 'KES 250,000 - 500,000', labelSwahili: 'KES 250,000 - 500,000', min: 250000, max: 500000 },
+  { value: '500k_1m', label: 'KES 500,000 - 1 Million', labelSwahili: 'KES 500,000 - Milioni 1', min: 500000, max: 1000000 },
+  { value: '1m_5m', label: 'KES 1 Million - 5 Million', labelSwahili: 'Milioni 1 - 5', min: 1000000, max: 5000000 },
+  { value: 'above_5m', label: 'Above KES 5 Million', labelSwahili: 'Zaidi ya Milioni 5', min: 5000000, max: 50000000 }
 ];
 
 export const FUNDING_SOURCES = [

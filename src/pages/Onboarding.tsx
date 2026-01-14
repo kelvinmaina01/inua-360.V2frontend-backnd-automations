@@ -4,12 +4,11 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Checkbox } from '../components/ui/checkbox';
-import { Slider } from '../components/ui/slider';
 import { Progress } from '../components/ui/progress';
 import { AgentAvatar } from '../components/AgentAvatar';
 import { InuaLogo } from '../components/InuaLogo';
-import { KENYAN_SECTORS, KENYAN_COUNTIES } from '../lib/constants';
-import { Globe, Smartphone, ChevronRight, ChevronDown, Camera, CheckCircle, Shield, Lock, Store, Wallet, Phone } from 'lucide-react';
+import { KENYAN_SECTORS, KENYAN_COUNTIES, REVENUE_RANGES } from '../lib/constants';
+import { Globe, Smartphone, ChevronRight, ChevronDown, CheckCircle, Shield, Lock, Store, Wallet, Phone, TrendingUp, Mail, MessageSquare } from 'lucide-react';
 
 interface OnboardingProps {
   onComplete: (data: any) => void;
@@ -30,14 +29,27 @@ export function Onboarding({ onComplete }: OnboardingProps) {
     businessName: '',
     sector: '',
     county: '',
-    revenue: 50000,
+    revenueRange: '',
     challenges: [] as string[],
     mpesaConnected: false,
     mpesaAccountType: null as 'till' | 'paybill' | 'pochi' | null,
     mpesaDetails: {} as Record<string, string>,
-    whatsappConnected: false,
+    notificationChannels: [] as string[],
     autonomyEnabled: false
   });
+  const [agentsExpanded, setAgentsExpanded] = useState(false);
+
+  // Compact 3-word agent descriptions
+  const agents = [
+    { id: 'profile', tagline: 'Build Your Profile', taglineSwahili: 'Jenga Wasifu' },
+    { id: 'compliance', tagline: 'Track Compliance', taglineSwahili: 'Fuatilia Sheria' },
+    { id: 'funding', tagline: 'Find Funding', taglineSwahili: 'Tafuta Fedha' },
+    { id: 'cashflow', tagline: 'Forecast Cash', taglineSwahili: 'Tabiri Fedha' },
+    { id: 'application', tagline: 'Submit Applications', taglineSwahili: 'Wasilisha Maombi' },
+    { id: 'supervisor', tagline: 'Coordinate Agents', taglineSwahili: 'Ratibu Mawakala' }
+  ];
+
+
 
   const totalSteps = 3;
   const progress = (step / totalSteps) * 100;
@@ -252,8 +264,8 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                         {/* Till Number */}
                         <div
                           className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${mpesaAccountType === 'till'
-                              ? 'border-emerald-500 bg-emerald-500/5'
-                              : 'border-border hover:border-emerald-500/50'
+                            ? 'border-emerald-500 bg-emerald-500/5'
+                            : 'border-border hover:border-emerald-500/50'
                             }`}
                           onClick={() => setMpesaAccountType('till')}
                         >
@@ -285,8 +297,8 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                         {/* Paybill */}
                         <div
                           className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${mpesaAccountType === 'paybill'
-                              ? 'border-emerald-500 bg-emerald-500/5'
-                              : 'border-border hover:border-emerald-500/50'
+                            ? 'border-emerald-500 bg-emerald-500/5'
+                            : 'border-border hover:border-emerald-500/50'
                             }`}
                           onClick={() => setMpesaAccountType('paybill')}
                         >
@@ -323,8 +335,8 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                         {/* Pochi la Biashara */}
                         <div
                           className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${mpesaAccountType === 'pochi'
-                              ? 'border-emerald-500 bg-emerald-500/5'
-                              : 'border-border hover:border-emerald-500/50'
+                            ? 'border-emerald-500 bg-emerald-500/5'
+                            : 'border-border hover:border-emerald-500/50'
                             }`}
                           onClick={() => setMpesaAccountType('pochi')}
                         >
@@ -373,7 +385,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
               <div className="text-center space-y-2">
                 <AgentAvatar agentId="profile" size="lg" status="active" showPulse />
                 <h2>{language === 'sw' ? 'Wasifu wa Biashara' : 'Business Profile'}</h2>
-                <p className="text-muted-foreground">
+                <p className="animated-subtitle">
                   {language === 'sw'
                     ? 'Tuambie kuhusu biashara yako'
                     : 'Tell us about your business'}
@@ -426,22 +438,26 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>
+                  <Label htmlFor="revenue">
                     {language === 'sw' ? 'Mapato ya Mwezi' : 'Monthly Revenue'} (KES)
                   </Label>
-                  <div className="space-y-4">
-                    <Slider
-                      value={[formData.revenue]}
-                      onValueChange={([value]) => setFormData({ ...formData, revenue: value })}
-                      min={10000}
-                      max={5000000}
-                      step={10000}
-                      className="py-4"
-                    />
-                    <div className="text-center p-4 bg-primary/10 rounded-lg">
-                      <p className="text-primary">KES {formData.revenue.toLocaleString()}</p>
-                    </div>
-                  </div>
+                  <Select value={formData.revenueRange} onValueChange={(value) => setFormData({ ...formData, revenueRange: value })}>
+                    <SelectTrigger id="revenue" className="h-12">
+                      <div className="flex items-center gap-2">
+                        <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                        <SelectValue placeholder={language === 'sw' ? 'Chagua mapato' : 'Select revenue range'} />
+                      </div>
+                    </SelectTrigger>
+                    <SelectContent>
+                      {REVENUE_RANGES.map((range) => (
+                        <SelectItem key={range.value} value={range.value} className="py-3">
+                          <span className="font-medium">
+                            {language === 'sw' ? range.labelSwahili : range.label}
+                          </span>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div className="space-y-3">
@@ -462,10 +478,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                   </div>
                 </div>
 
-                <Button variant="outline" className="w-full gap-2">
-                  <Camera className="h-4 w-4" />
-                  {language === 'sw' ? 'Piga Picha ya Risiti (AI Auto-Fill)' : 'Scan Receipt (AI Auto-Fill)'}
-                </Button>
+
               </div>
             </div>
           )}
@@ -484,6 +497,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
               </div>
 
               <div className="space-y-4">
+                {/* Autonomy Mode Toggle */}
                 <div className="border border-border rounded-lg p-4 space-y-4">
                   <div className="flex items-start gap-3">
                     <Checkbox
@@ -504,33 +518,84 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                   </div>
                 </div>
 
+                {/* Notification Channel Selection - Checkbox style */}
                 <div className="border border-border rounded-lg p-4 space-y-4">
                   <div className="flex items-start gap-3">
                     <Checkbox
-                      id="whatsapp"
-                      checked={formData.whatsappConnected}
-                      onCheckedChange={(checked) => setFormData({ ...formData, whatsappConnected: checked as boolean })}
+                      id="notifications"
+                      checked={formData.notificationChannels.length > 0}
+                      onCheckedChange={(checked) => {
+                        if (!checked) setFormData({ ...formData, notificationChannels: [] });
+                      }}
                     />
                     <div className="flex-1">
-                      <Label htmlFor="whatsapp" className="cursor-pointer">
-                        {language === 'sw' ? 'Ungana na WhatsApp' : 'Connect WhatsApp'}
+                      <Label htmlFor="notifications" className="cursor-pointer">
+                        {language === 'sw' ? 'Ungana na Arifa' : 'Connect Notifications'}
                       </Label>
                       <p className="text-muted-foreground mt-1">
                         {language === 'sw'
-                          ? 'Pata arifa na uidhinishe vitendo kupitia WhatsApp (95% ya mwingiliano)'
-                          : 'Receive alerts and approve actions via WhatsApp (95% of interactions)'}
+                          ? 'Pata arifa na uidhinishe vitendo kupitia njia unayopendelea'
+                          : 'Receive alerts and approve actions via your preferred channel'}
                       </p>
                     </div>
                   </div>
+
+                  {/* Channel selection - shown when checkbox is focused */}
+                  <div className="flex gap-2 pt-2 border-t border-border">
+                    {[
+                      { id: 'whatsapp', label: 'WhatsApp', icon: MessageSquare, color: 'text-emerald-500', bg: 'bg-emerald-500/10', border: 'border-emerald-500' },
+                      { id: 'gmail', label: 'Gmail', icon: Mail, color: 'text-red-500', bg: 'bg-red-500/10', border: 'border-red-500' },
+                      { id: 'slack', label: 'Slack', icon: MessageSquare, color: 'text-purple-500', bg: 'bg-purple-500/10', border: 'border-purple-500' }
+                    ].map((channel) => {
+                      const Icon = channel.icon;
+                      return (
+                        <button
+                          key={channel.id}
+                          type="button"
+                          className={`flex-1 flex items-center justify-center gap-2 p-2.5 rounded-lg border-2 transition-all ${formData.notificationChannels.includes(channel.id)
+                              ? `${channel.border} ${channel.bg}`
+                              : 'border-border hover:border-muted-foreground/50'
+                            }`}
+                          onClick={() => {
+                            const newChannels = formData.notificationChannels.includes(channel.id)
+                              ? formData.notificationChannels.filter(c => c !== channel.id)
+                              : [...formData.notificationChannels, channel.id];
+                            setFormData({ ...formData, notificationChannels: newChannels });
+                          }}
+                        >
+                          <Icon className={`h-4 w-4 ${formData.notificationChannels.includes(channel.id) ? channel.color : 'text-muted-foreground'}`} />
+                          <span className={`text-sm font-medium ${formData.notificationChannels.includes(channel.id) ? '' : 'text-muted-foreground'}`}>
+                            {channel.label}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
 
-                <div className="bg-muted/50 rounded-lg p-4 space-y-3">
-                  <h4>{language === 'sw' ? 'Mawakala yako wa AI:' : 'Your AI Agents:'}</h4>
+                {/* AI Agents - Collapsible with original grid layout */}
+                <div
+                  className="bg-muted/50 rounded-lg p-4 space-y-3 cursor-pointer group"
+                  onClick={() => setAgentsExpanded(!agentsExpanded)}
+                >
+                  <div className="flex items-center justify-between">
+                    <h4>{language === 'sw' ? 'Mawakala yako wa AI:' : 'Your AI Agents:'}</h4>
+                    <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${agentsExpanded ? 'rotate-180' : ''}`} />
+                  </div>
+
+                  {/* Compact grid - always visible */}
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    {['profile', 'compliance', 'funding', 'cashflow', 'application', 'supervisor'].map((agentId) => (
-                      <div key={agentId} className="flex items-center gap-2 p-2 bg-background rounded border border-border">
-                        <AgentAvatar agentId={agentId} size="sm" status="active" />
-                        <span className="text-xs capitalize">{agentId}</span>
+                    {agents.map((agent) => (
+                      <div key={agent.id} className="flex items-center gap-2 p-2 bg-background rounded border border-border">
+                        <AgentAvatar agentId={agent.id} size="sm" status="active" />
+                        <div className="min-w-0">
+                          <span className="text-xs capitalize font-medium block">{agent.id}</span>
+                          {agentsExpanded && (
+                            <span className="text-[10px] text-muted-foreground truncate block">
+                              {language === 'sw' ? agent.taglineSwahili : agent.tagline}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -551,8 +616,8 @@ export function Onboarding({ onComplete }: OnboardingProps) {
               className={`flex-1 gap-2 btn-premium animate-button-glow h-12 text-base rounded-xl ${step === 1 ? '' : ''
                 }`}
               disabled={
-                (step === 2 && (!formData.businessName || !formData.sector || !formData.county)) ||
-                (step === 3 && !formData.autonomyEnabled && !formData.whatsappConnected)
+                (step === 2 && (!formData.businessName || !formData.sector || !formData.county || !formData.revenueRange)) ||
+                (step === 3 && (!formData.autonomyEnabled || formData.notificationChannels.length === 0))
               }
             >
               {step === totalSteps
