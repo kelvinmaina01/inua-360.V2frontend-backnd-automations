@@ -7,8 +7,9 @@ import { Checkbox } from '../components/ui/checkbox';
 import { Slider } from '../components/ui/slider';
 import { Progress } from '../components/ui/progress';
 import { AgentAvatar } from '../components/AgentAvatar';
+import { InuaLogo } from '../components/InuaLogo';
 import { KENYAN_SECTORS, KENYAN_COUNTIES } from '../lib/constants';
-import { Globe, Smartphone, ChevronRight, Camera, CheckCircle } from 'lucide-react';
+import { Globe, Smartphone, ChevronRight, ChevronDown, Camera, CheckCircle, Shield, Lock, Store, Wallet, Phone } from 'lucide-react';
 
 interface OnboardingProps {
   onComplete: (data: any) => void;
@@ -17,6 +18,14 @@ interface OnboardingProps {
 export function Onboarding({ onComplete }: OnboardingProps) {
   const [step, setStep] = useState(1);
   const [language, setLanguage] = useState<'en' | 'sw'>('en');
+  const [mpesaExpanded, setMpesaExpanded] = useState(false);
+  const [mpesaAccountType, setMpesaAccountType] = useState<'till' | 'paybill' | 'pochi' | null>(null);
+  const [mpesaDetails, setMpesaDetails] = useState({
+    tillNumber: '',
+    paybillNumber: '',
+    accountNumber: '',
+    pochiPhone: ''
+  });
   const [formData, setFormData] = useState({
     businessName: '',
     sector: '',
@@ -24,6 +33,8 @@ export function Onboarding({ onComplete }: OnboardingProps) {
     revenue: 50000,
     challenges: [] as string[],
     mpesaConnected: false,
+    mpesaAccountType: null as 'till' | 'paybill' | 'pochi' | null,
+    mpesaDetails: {} as Record<string, string>,
     whatsappConnected: false,
     autonomyEnabled: false
   });
@@ -67,11 +78,11 @@ export function Onboarding({ onComplete }: OnboardingProps) {
       <div className="p-4 sm:p-6 border-b border-border">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <AgentAvatar agentId="supervisor" size="md" status="active" showPulse />
+            <InuaLogo size="md" showPulse />
             <div>
-              <h1 className="text-primary">Inua 360</h1>
-              <p className="text-muted-foreground">
-                {language === 'sw' ? 'Kiongozi wako wa AI' : 'Your AI Co-Pilot'}
+              <h1 className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Inua 360</h1>
+              <p className="text-sm text-muted-foreground">
+                {language === 'sw' ? 'Mshirika wako wa Biashara' : 'Your Business Co-Pilot'}
               </p>
             </div>
           </div>
@@ -106,55 +117,73 @@ export function Onboarding({ onComplete }: OnboardingProps) {
           {/* Step 1: Welcome */}
           {step === 1 && (
             <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+              {/* Welcome Header with Logo */}
               <div className="text-center space-y-4">
-                <div className="inline-flex p-4 rounded-full bg-primary/10">
-                  <AgentAvatar agentId="supervisor" size="lg" status="active" showPulse />
+                <div className="inline-flex p-4 rounded-full bg-gradient-to-br from-orange-500/10 to-amber-500/10">
+                  <InuaLogo size="xl" showPulse />
                 </div>
-                <h2>{language === 'sw' ? 'Karibu Inua 360!' : 'Welcome to Inua 360!'}</h2>
+                <h2 className="text-2xl font-bold">
+                  {language === 'sw' ? 'Karibu Inua 360!' : 'Welcome to Inua 360!'}
+                </h2>
                 <p className="text-muted-foreground">
                   {language === 'sw'
-                    ? 'Kiongozi wako cha AI kwa ajili ya ukuaji wa biashara'
-                    : 'Your AI Co-Pilot for SME Growth'}
+                    ? 'Mshirika wako wa biashara kwa ajili ya ukuaji wa SME'
+                    : 'Your Business Co-Pilot for SME Growth'}
                 </p>
               </div>
 
-              <div className="space-y-6 kitenge-pattern p-6 rounded-lg border border-border">
-                <h3>{language === 'sw' ? 'Tutafanya nini pamoja:' : "What we'll do together:"}</h3>
+              {/* What we'll do together - with staggered animations */}
+              <div className="space-y-6 p-6 rounded-lg border border-border bg-card/50 backdrop-blur-sm">
+                <h3 className="font-semibold">
+                  {language === 'sw' ? 'Tutafanya nini pamoja:' : "What we'll do together:"}
+                </h3>
                 <div className="space-y-4">
-                  <div className="flex gap-3">
-                    <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
+                  {/* Item 1 */}
+                  <div className="flex gap-3 animate-fade-slide-in stagger-1">
+                    <div className="animate-tick-pulse stagger-1">
+                      <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                    </div>
                     <div>
-                      <p>
+                      <p className="font-medium">
                         {language === 'sw'
                           ? 'Jenga wasifu wa biashara yako wa 360°'
                           : 'Build your 360° business profile'}
                       </p>
                     </div>
                   </div>
-                  <div className="flex gap-3">
-                    <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
+                  {/* Item 2 */}
+                  <div className="flex gap-3 animate-fade-slide-in stagger-2">
+                    <div className="animate-tick-pulse stagger-2">
+                      <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                    </div>
                     <div>
-                      <p>
+                      <p className="font-medium">
                         {language === 'sw'
                           ? 'Tafuta fedha zinazofaa biashara yako'
                           : 'Find funding opportunities that match your business'}
                       </p>
                     </div>
                   </div>
-                  <div className="flex gap-3">
-                    <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
+                  {/* Item 3 */}
+                  <div className="flex gap-3 animate-fade-slide-in stagger-3">
+                    <div className="animate-tick-pulse stagger-3">
+                      <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                    </div>
                     <div>
-                      <p>
+                      <p className="font-medium">
                         {language === 'sw'
                           ? 'Fuatilia sheria na leseni kiotomatiki'
                           : 'Track compliance and licenses automatically'}
                       </p>
                     </div>
                   </div>
-                  <div className="flex gap-3">
-                    <CheckCircle className="h-5 w-5 text-success shrink-0 mt-0.5" />
+                  {/* Item 4 */}
+                  <div className="flex gap-3 animate-fade-slide-in stagger-4">
+                    <div className="animate-tick-pulse stagger-4">
+                      <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                    </div>
                     <div>
-                      <p>
+                      <p className="font-medium">
                         {language === 'sw'
                           ? 'Tabiri mtiririko wa fedha na ongeza faida'
                           : 'Forecast cash flow and grow profits'}
@@ -164,20 +193,176 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                 </div>
               </div>
 
-              <div className="bg-secondary/10 border border-secondary/20 rounded-lg p-4">
-                <div className="flex items-start gap-3">
-                  <Smartphone className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="text-secondary">
-                      {language === 'sw' ? 'Ungana na M-Pesa?' : 'Connect M-Pesa?'}
-                    </h4>
-                    <p className="text-muted-foreground">
-                      {language === 'sw'
-                        ? 'Jaza taarifa za biashara kiotomatiki kutoka kwa miamala yako'
-                        : 'Auto-fill business info from your transactions'}
-                    </p>
+              {/* M-Pesa Business Connection - Expandable with Account Types */}
+              <div className="mpesa-trust-card overflow-hidden transition-all duration-300">
+                {/* Header - Click to expand */}
+                <div
+                  className="p-5 cursor-pointer group"
+                  onClick={() => setMpesaExpanded(!mpesaExpanded)}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 p-3 rounded-xl bg-emerald-500/10 group-hover:bg-emerald-500/20 transition-colors">
+                      <Smartphone className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
+                    </div>
+
+                    <div className="flex-1 space-y-2">
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-semibold text-foreground">
+                          {language === 'sw' ? 'Ungana na M-Pesa ya Biashara' : 'Connect Business M-Pesa'}
+                        </h4>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-medium">
+                          {language === 'sw' ? 'Inapendekezwa' : 'Recommended'}
+                        </span>
+                      </div>
+
+                      <p className="text-sm text-muted-foreground">
+                        {language === 'sw'
+                          ? 'Fuatilia miamala ya biashara yako kupitia Daraja API'
+                          : 'Track your business transactions via Daraja API'}
+                      </p>
+
+                      {/* Trust badges */}
+                      <div className="flex flex-wrap gap-3 pt-1">
+                        <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400">
+                          <Lock className="h-3.5 w-3.5" />
+                          <span>{language === 'sw' ? 'Imefungwa' : 'Encrypted'}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400">
+                          <Shield className="h-3.5 w-3.5" />
+                          <span>{language === 'sw' ? 'Biashara tu' : 'Business only'}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Expand indicator */}
+                    <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform duration-200 ${mpesaExpanded ? 'rotate-180' : ''}`} />
                   </div>
                 </div>
+
+                {/* Expanded Content - Account Type Selection */}
+                {mpesaExpanded && (
+                  <div className="px-5 pb-5 space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                    <div className="border-t border-emerald-500/10 pt-4">
+                      <Label className="text-sm font-medium mb-3 block">
+                        {language === 'sw' ? 'Chagua aina ya akaunti:' : 'Select account type:'}
+                      </Label>
+
+                      {/* Account Type Cards */}
+                      <div className="grid gap-3">
+                        {/* Till Number */}
+                        <div
+                          className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${mpesaAccountType === 'till'
+                              ? 'border-emerald-500 bg-emerald-500/5'
+                              : 'border-border hover:border-emerald-500/50'
+                            }`}
+                          onClick={() => setMpesaAccountType('till')}
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 rounded-lg bg-orange-500/10">
+                              <Store className="h-5 w-5 text-orange-500" />
+                            </div>
+                            <div className="flex-1">
+                              <p className="font-medium">Till Number</p>
+                              <p className="text-xs text-muted-foreground">Buy Goods & Services</p>
+                            </div>
+                            {mpesaAccountType === 'till' && (
+                              <CheckCircle className="h-5 w-5 text-emerald-500" />
+                            )}
+                          </div>
+                          {mpesaAccountType === 'till' && (
+                            <div className="mt-3 pt-3 border-t border-border">
+                              <Input
+                                placeholder="Enter 6-digit Till number"
+                                value={mpesaDetails.tillNumber}
+                                onChange={(e) => setMpesaDetails({ ...mpesaDetails, tillNumber: e.target.value })}
+                                maxLength={6}
+                                className="text-center text-lg tracking-widest"
+                              />
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Paybill */}
+                        <div
+                          className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${mpesaAccountType === 'paybill'
+                              ? 'border-emerald-500 bg-emerald-500/5'
+                              : 'border-border hover:border-emerald-500/50'
+                            }`}
+                          onClick={() => setMpesaAccountType('paybill')}
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 rounded-lg bg-blue-500/10">
+                              <Wallet className="h-5 w-5 text-blue-500" />
+                            </div>
+                            <div className="flex-1">
+                              <p className="font-medium">Paybill</p>
+                              <p className="text-xs text-muted-foreground">Business Paybill Number</p>
+                            </div>
+                            {mpesaAccountType === 'paybill' && (
+                              <CheckCircle className="h-5 w-5 text-emerald-500" />
+                            )}
+                          </div>
+                          {mpesaAccountType === 'paybill' && (
+                            <div className="mt-3 pt-3 border-t border-border space-y-3">
+                              <Input
+                                placeholder="Paybill number (e.g. 247247)"
+                                value={mpesaDetails.paybillNumber}
+                                onChange={(e) => setMpesaDetails({ ...mpesaDetails, paybillNumber: e.target.value })}
+                                className="text-center"
+                              />
+                              <Input
+                                placeholder="Account number"
+                                value={mpesaDetails.accountNumber}
+                                onChange={(e) => setMpesaDetails({ ...mpesaDetails, accountNumber: e.target.value })}
+                                className="text-center"
+                              />
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Pochi la Biashara */}
+                        <div
+                          className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${mpesaAccountType === 'pochi'
+                              ? 'border-emerald-500 bg-emerald-500/5'
+                              : 'border-border hover:border-emerald-500/50'
+                            }`}
+                          onClick={() => setMpesaAccountType('pochi')}
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 rounded-lg bg-emerald-500/10">
+                              <Phone className="h-5 w-5 text-emerald-500" />
+                            </div>
+                            <div className="flex-1">
+                              <p className="font-medium">Pochi la Biashara</p>
+                              <p className="text-xs text-muted-foreground">Safaricom Business Wallet</p>
+                            </div>
+                            {mpesaAccountType === 'pochi' && (
+                              <CheckCircle className="h-5 w-5 text-emerald-500" />
+                            )}
+                          </div>
+                          {mpesaAccountType === 'pochi' && (
+                            <div className="mt-3 pt-3 border-t border-border">
+                              <Input
+                                placeholder="Phone number (07XX or 01XX)"
+                                value={mpesaDetails.pochiPhone}
+                                onChange={(e) => setMpesaDetails({ ...mpesaDetails, pochiPhone: e.target.value })}
+                                maxLength={10}
+                                className="text-center text-lg"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Security disclaimer */}
+                      <div className="mt-4 p-3 rounded-lg bg-muted/50 text-xs text-muted-foreground">
+                        🔒 {language === 'sw'
+                          ? 'Tutatumia Safaricom Daraja API kupata jumla za miamala tu. Hakuna data ya kibinafsi itakayohifadhiwa.'
+                          : 'We use Safaricom Daraja API to fetch transaction totals only. No personal data is stored.'}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -363,7 +548,8 @@ export function Onboarding({ onComplete }: OnboardingProps) {
             )}
             <Button
               onClick={handleNext}
-              className="flex-1 gap-2"
+              className={`flex-1 gap-2 btn-premium animate-button-glow h-12 text-base rounded-xl ${step === 1 ? '' : ''
+                }`}
               disabled={
                 (step === 2 && (!formData.businessName || !formData.sector || !formData.county)) ||
                 (step === 3 && !formData.autonomyEnabled && !formData.whatsappConnected)
@@ -376,7 +562,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                 : language === 'sw'
                   ? 'Endelea'
                   : 'Continue'}
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-5 w-5" />
             </Button>
           </div>
         </div>
