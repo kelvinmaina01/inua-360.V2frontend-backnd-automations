@@ -70,6 +70,16 @@ export const AGENTS = [
     description: 'Syncs M-Pesa transactions and tracks financial health',
     descriptionSwahili: 'Inasawazisha miamala ya M-Pesa na kufuatilia afya ya fedha',
     status: 'active' as const
+  },
+  {
+    id: 'credit',
+    name: 'Credit Advisor',
+    nameSwahili: 'Mshauri wa Mikopo',
+    icon: 'credit-card',
+    color: '#8B5CF6',
+    description: 'Monitors creditworthiness and provides improvement insights',
+    descriptionSwahili: 'Inafuatilia ustahiki wa mikopo na kutoa maarifa ya kuboresha',
+    status: 'active' as const
   }
 ];
 

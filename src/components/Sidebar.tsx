@@ -1,6 +1,6 @@
 import { Home, Activity, Wallet, Shield, User, MessageCircle, Settings, Power, BarChart3 } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { AgentAvatar } from './AgentAvatar';
+import { InuaLogo } from './InuaLogo';
 import { Switch } from './ui/switch';
 
 interface SidebarProps {
@@ -26,15 +26,12 @@ export function Sidebar({ currentRoute, onNavigate, language, autonomyMode, onAu
   return (
     <aside className="hidden lg:flex flex-col w-64 bg-card border-r border-border h-screen sticky top-0">
       <div className="p-6 border-b border-border">
-        <div className="flex items-center gap-3">
-          <AgentAvatar agentId="supervisor" size="md" status={autonomyMode ? 'active' : 'idle'} showPulse />
-          <div>
-            <h2 className="text-primary">Inua 360</h2>
-            <p className="text-muted-foreground">
-              {language === 'sw' ? 'Kiongozi wa AI' : 'AI Co-Pilot'}
-            </p>
-          </div>
-        </div>
+        <InuaLogo
+          size="md"
+          showSlogan={true}
+          showPulse={autonomyMode}
+          language={language}
+        />
       </div>
 
       <nav className="flex-1 p-4 space-y-2">

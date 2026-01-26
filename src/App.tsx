@@ -10,6 +10,7 @@ import { Money } from './pages/Money';
 import { LoanReadiness } from './pages/LoanReadiness';
 import { ConnectMpesa } from './pages/ConnectMpesa';
 import { Compliance } from './pages/Compliance';
+import { CreditScore } from './pages/CreditScore';
 import { Profile } from './pages/Profile';
 import { Chat } from './pages/Chat';
 import { Settings } from './pages/Settings';
@@ -170,6 +171,8 @@ export default function App() {
         return <ConnectMpesa language={language} onNavigate={handleNavigate} />;
       case '/compliance':
         return <Compliance language={language} onNavigate={handleNavigate} />;
+      case '/credit-score':
+        return <CreditScore language={language} onNavigate={handleNavigate} />;
       case '/profile':
         return <Profile language={language} />;
       case '/chat':
@@ -250,25 +253,29 @@ export default function App() {
                           ? language === 'sw'
                             ? 'Uwezo wa Mkopo'
                             : 'Loan Readiness'
-                        : currentRoute === '/connect-mpesa'
-                          ? language === 'sw'
-                            ? 'Unganisha M-Pesa'
-                            : 'Connect M-Pesa'
-                        : currentRoute === '/compliance'
-                          ? language === 'sw'
-                            ? 'Kinga'
-                            : 'Compliance'
-                          : currentRoute === '/profile'
+                          : currentRoute === '/connect-mpesa'
                             ? language === 'sw'
-                              ? 'Wasifu'
-                              : 'Profile'
-                            : currentRoute === '/chat'
+                              ? 'Unganisha M-Pesa'
+                              : 'Connect M-Pesa'
+                            : currentRoute === '/compliance'
                               ? language === 'sw'
-                                ? 'Ongea'
-                                : 'Chat'
-                              : language === 'sw'
-                                ? 'Mipangilio'
-                                : 'Settings'}
+                                ? 'Kinga'
+                                : 'Compliance'
+                              : currentRoute === '/credit-score'
+                                ? language === 'sw'
+                                  ? 'Alama ya Mkopo'
+                                  : 'Credit Score'
+                                : currentRoute === '/profile'
+                                  ? language === 'sw'
+                                    ? 'Wasifu'
+                                    : 'Profile'
+                                  : currentRoute === '/chat'
+                                    ? language === 'sw'
+                                      ? 'Ongea'
+                                      : 'Chat'
+                                    : language === 'sw'
+                                      ? 'Mipangilio'
+                                      : 'Settings'}
               </h2>
             </div>
             <div className="flex items-center gap-4">

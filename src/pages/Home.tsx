@@ -284,6 +284,69 @@ export function Home({ language, onNavigate, isOnline }: HomeProps) {
         <FinancialKPIs language={language} onNavigate={onNavigate} />
       </div>
 
+      {/* Credit Score Card */}
+      <Card className="p-6 bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-950/30 dark:to-purple-900/20 border-purple-200 dark:border-purple-800">
+        <div className="flex items-center gap-6">
+          {/* Mini Circular Gauge */}
+          <div className="relative w-24 h-24 shrink-0">
+            <svg className="w-24 h-24 transform -rotate-90">
+              <circle
+                cx="48"
+                cy="48"
+                r="40"
+                stroke="hsl(var(--muted))"
+                strokeWidth="8"
+                fill="none"
+              />
+              <circle
+                cx="48"
+                cy="48"
+                r="40"
+                stroke="#8B5CF6"
+                strokeWidth="8"
+                fill="none"
+                strokeDasharray={`${(82 / 100) * 251.33} 251.33`}
+                strokeLinecap="round"
+                className="transition-all duration-1000"
+              />
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center flex-col">
+              <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">82</span>
+              <span className="text-[10px] text-muted-foreground">/100</span>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <h3 className="text-purple-900 dark:text-purple-100">
+                {language === 'sw' ? 'Alama ya Mkopo' : 'Credit Score'}
+              </h3>
+              <Badge className="bg-success text-white">
+                {language === 'sw' ? 'Nzuri Sana' : 'Very Good'}
+              </Badge>
+            </div>
+            <p className="text-sm text-purple-700 dark:text-purple-300 mb-3">
+              {language === 'sw'
+                ? 'Ustahiki wako wa mikopo ni mzuri. Endelea kufanya vizuri!'
+                : 'Your creditworthiness is strong. Keep it up!'}
+            </p>
+            <div className="flex items-center gap-2 text-xs text-purple-600 dark:text-purple-400 mb-3">
+              <AgentAvatar agentId="credit" size="sm" />
+              {language === 'sw' ? 'Mshauri wa Mikopo' : 'Credit Advisor'}
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onNavigate('/credit-score')}
+              className="border-purple-300 text-purple-700 hover:bg-purple-100 dark:border-purple-700 dark:text-purple-300 dark:hover:bg-purple-900/30"
+            >
+              {language === 'sw' ? 'Angalia Maelezo' : 'View Details'}
+            </Button>
+          </div>
+        </div>
+      </Card>
+
       {/* Today's Agent Actions */}
       <Card className="p-6">
         <div className="flex items-center justify-between mb-4">
@@ -360,7 +423,7 @@ export function Home({ language, onNavigate, isOnline }: HomeProps) {
       </Card>
 
       {/* Analytics Quick Access */}
-      <Card 
+      <Card
         className="p-6 bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20 hover:border-primary/40 transition-all cursor-pointer"
         onClick={() => onNavigate('/analytics')}
       >

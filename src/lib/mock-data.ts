@@ -306,3 +306,127 @@ export const MOCK_CHAT_MESSAGES = [
     ]
   }
 ];
+
+export const MOCK_CREDIT_SCORE = {
+  score: 82,
+  grade: 'excellent' as const,
+  breakdown: {
+    payment_history: {
+      score: 85,
+      weight: 35,
+      status: 'good' as const,
+      factors: {
+        transaction_regularity: {
+          score: 90,
+          status: 'excellent',
+          details: 'Consistent M-Pesa transactions for 6+ months',
+          detailsSwahili: 'Miamala ya kawaida ya M-Pesa kwa miezi 6+'
+        },
+        average_payment_value: {
+          score: 85,
+          status: 'good',
+          details: 'Average transaction value increasing by 15%',
+          detailsSwahili: 'Wastani wa thamani ya miamala unaongezeka kwa 15%'
+        },
+        payment_timeliness: {
+          score: 80,
+          status: 'good',
+          details: 'Regular payment patterns observed',
+          detailsSwahili: 'Mifumo ya malipo ya kawaida imegunduliwa'
+        }
+      }
+    },
+    financial_stability: {
+      score: 88,
+      weight: 30,
+      status: 'excellent' as const,
+      factors: {
+        cash_flow_consistency: {
+          score: 85,
+          status: 'good',
+          details: 'Positive cash flow in 5 of last 6 months',
+          detailsSwahili: 'Mtiririko chanya wa fedha katika miezi 5 ya 6 iliyopita'
+        },
+        revenue_growth: {
+          score: 92,
+          status: 'excellent',
+          details: '23.5% revenue growth year-over-year',
+          detailsSwahili: 'Ukuaji wa mapato wa 23.5% kwa mwaka'
+        },
+        expense_ratio: {
+          score: 87,
+          status: 'good',
+          details: 'Expenses consistently below 65% of revenue',
+          detailsSwahili: 'Gharama mara kwa mara chini ya 65% ya mapato'
+        }
+      }
+    },
+    business_longevity: {
+      score: 75,
+      weight: 20,
+      status: 'adequate' as const,
+      years_in_operation: 3.7,
+      details: '3 years, 8 months of active trading',
+      detailsSwahili: 'Miaka 3, miezi 8 ya biashara hai'
+    },
+    compliance_impact: {
+      score: 87,
+      weight: 15,
+      status: 'excellent' as const,
+      compliance_score: 87,
+      details: '5 of 6 compliance items valid and up-to-date',
+      detailsSwahili: 'Vitu 5 vya 6 vya ufuatiliaji ni halali na vimesasishwa'
+    }
+  },
+  historical_scores: [
+    { date: '2025-06', score: 72 },
+    { date: '2025-07', score: 74 },
+    { date: '2025-08', score: 76 },
+    { date: '2025-09', score: 78 },
+    { date: '2025-10', score: 80 },
+    { date: '2025-11', score: 82 }
+  ],
+  improvement_actions: [
+    {
+      id: '1',
+      priority: 'high' as const,
+      category: 'payment_history' as const,
+      action: 'Maintain consistent M-Pesa transactions for 3 more months',
+      actionSwahili: 'Endelea na miamala ya kawaida ya M-Pesa kwa miezi 3 zaidi',
+      impact: '+5 points to credit score',
+      impactSwahili: '+5 alama kwa alama ya mikopo',
+      estimated_time: '3 months',
+      estimated_time_swahili: 'Miezi 3',
+      current_progress: '6 months streak',
+      current_progress_swahili: 'Mfululizo wa miezi 6'
+    },
+    {
+      id: '2',
+      priority: 'medium' as const,
+      category: 'financial_stability' as const,
+      action: 'Increase cash runway to 60 days',
+      actionSwahili: 'Ongeza kipindi cha fedha hadi siku 60',
+      impact: '+8 points to credit score',
+      impactSwahili: '+8 alama kwa alama ya mikopo',
+      estimated_time: '2-3 months',
+      estimated_time_swahili: 'Miezi 2-3',
+      current_progress: '38 days runway',
+      current_progress_swahili: 'Kipindi cha siku 38'
+    },
+    {
+      id: '3',
+      priority: 'low' as const,
+      category: 'business_longevity' as const,
+      action: 'Continue building business track record',
+      actionSwahili: 'Endelea kujenga historia ya biashara',
+      impact: '+2 points per year',
+      impactSwahili: '+2 alama kwa mwaka',
+      estimated_time: 'Ongoing',
+      estimated_time_swahili: 'Inaendelea',
+      current_progress: '3.7 years in operation',
+      current_progress_swahili: 'Miaka 3.7 ya uendeshaji'
+    }
+  ],
+  last_updated: new Date('2025-11-18T10:00:00'),
+  next_update: new Date('2025-12-18T10:00:00')
+};
