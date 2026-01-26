@@ -6,7 +6,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Checkbox } from '../components/ui/checkbox';
 import { Progress } from '../components/ui/progress';
 import { AgentAvatar } from '../components/AgentAvatar';
-import { InuaLogo } from '../components/InuaLogo';
 import { KENYAN_SECTORS, KENYAN_COUNTIES, REVENUE_RANGES } from '../lib/constants';
 import { Globe, Smartphone, ChevronRight, ChevronDown, CheckCircle, Shield, Lock, Store, Wallet, Phone, TrendingUp, Mail, MessageSquare } from 'lucide-react';
 
@@ -89,14 +88,11 @@ export function Onboarding({ onComplete }: OnboardingProps) {
       {/* Header */}
       <div className="p-4 sm:p-6 border-b border-border">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <InuaLogo size="md" showPulse />
-            <div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Inua 360</h1>
-              <p className="text-sm text-muted-foreground">
-                {language === 'sw' ? 'Mshirika wako wa Biashara' : 'Your Business Co-Pilot'}
-              </p>
-            </div>
+          <div>
+            <h1 className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Inua 360</h1>
+            <p className="text-sm text-muted-foreground">
+              {language === 'sw' ? 'Wakala wako wa SME AI' : 'Your SME AI Agent'}
+            </p>
           </div>
           <Button
             variant="ghost"
@@ -129,18 +125,15 @@ export function Onboarding({ onComplete }: OnboardingProps) {
           {/* Step 1: Welcome */}
           {step === 1 && (
             <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
-              {/* Welcome Header with Logo */}
+              {/* Welcome Header */}
               <div className="text-center space-y-4">
-                <div className="inline-flex p-4 rounded-full bg-gradient-to-br from-orange-500/10 to-amber-500/10">
-                  <InuaLogo size="xl" showPulse />
-                </div>
-                <h2 className="text-2xl font-bold">
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">
                   {language === 'sw' ? 'Karibu Inua 360!' : 'Welcome to Inua 360!'}
                 </h2>
-                <p className="text-muted-foreground">
+                <p className="text-lg text-muted-foreground">
                   {language === 'sw'
-                    ? 'Mshirika wako wa biashara kwa ajili ya ukuaji wa SME'
-                    : 'Your Business Co-Pilot for SME Growth'}
+                    ? 'Wakala wako wa SME AI'
+                    : 'Your SME AI Agent'}
                 </p>
               </div>
 
@@ -553,8 +546,8 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                           key={channel.id}
                           type="button"
                           className={`flex-1 flex items-center justify-center gap-2 p-2.5 rounded-lg border-2 transition-all ${formData.notificationChannels.includes(channel.id)
-                              ? `${channel.border} ${channel.bg}`
-                              : 'border-border hover:border-muted-foreground/50'
+                            ? `${channel.border} ${channel.bg}`
+                            : 'border-border hover:border-muted-foreground/50'
                             }`}
                           onClick={() => {
                             const newChannels = formData.notificationChannels.includes(channel.id)
