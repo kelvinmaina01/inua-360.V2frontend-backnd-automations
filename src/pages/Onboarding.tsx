@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Checkbox } from '../components/ui/checkbox';
 import { Progress } from '../components/ui/progress';
 import { AgentAvatar } from '../components/AgentAvatar';
+import { InuaLogo } from '../components/InuaLogo';
 import { KENYAN_SECTORS, KENYAN_COUNTIES, REVENUE_RANGES } from '../lib/constants';
 import { Globe, Smartphone, ChevronRight, ChevronDown, CheckCircle, Shield, Lock, Store, Wallet, Phone, TrendingUp, Mail, MessageSquare } from 'lucide-react';
 
@@ -88,11 +89,14 @@ export function Onboarding({ onComplete }: OnboardingProps) {
       {/* Header */}
       <div className="p-4 sm:p-6 border-b border-border">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Inua 360</h1>
-            <p className="text-sm text-muted-foreground">
-              {language === 'sw' ? 'Wakala wako wa SME AI' : 'Your SME AI Agent'}
-            </p>
+          <div className="flex items-center gap-3">
+            <InuaLogo size="md" showSlogan={false} showPulse />
+            <div>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Inua 360</h1>
+              <p className="text-sm text-muted-foreground">
+                {language === 'sw' ? 'Wakala wako wa SME AI' : 'Your SME AI Agent'}
+              </p>
+            </div>
           </div>
           <Button
             variant="ghost"
