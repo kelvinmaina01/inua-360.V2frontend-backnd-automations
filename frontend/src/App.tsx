@@ -144,6 +144,17 @@ export default function App() {
     setAutonomyMode(enabled);
   };
 
+  const handleLogout = () => {
+    setHasCompletedOnboarding(false);
+    setCurrentRoute('/');
+    setAutonomyMode(false); // Reset autonomy mode
+
+    toast.success(
+      language === 'sw' ? 'Umeondoka kikamilifu' : 'Logged out successfully',
+      { duration: 2000 }
+    );
+  };
+
   // Show onboarding if not completed
   if (!hasCompletedOnboarding) {
     return (
@@ -184,6 +195,7 @@ export default function App() {
             darkMode={darkMode}
             onLanguageChange={handleLanguageChange}
             onDarkModeToggle={handleDarkModeToggle}
+            onLogout={handleLogout}
           />
         );
       default:

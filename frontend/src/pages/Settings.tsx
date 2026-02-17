@@ -22,7 +22,8 @@ import {
   Link,
   Clock,
   Check,
-  Plus
+  Plus,
+  LogOut
 } from 'lucide-react';
 
 interface SettingsProps {
@@ -30,9 +31,10 @@ interface SettingsProps {
   darkMode: boolean;
   onLanguageChange: (lang: 'en' | 'sw') => void;
   onDarkModeToggle: (enabled: boolean) => void;
+  onLogout: () => void;
 }
 
-export function Settings({ language, darkMode, onLanguageChange, onDarkModeToggle }: SettingsProps) {
+export function Settings({ language, darkMode, onLanguageChange, onDarkModeToggle, onLogout }: SettingsProps) {
   const [agentsEnabled, setAgentsEnabled] = useState<{ [key: string]: boolean }>({
     profile: true,
     compliance: true,
@@ -173,13 +175,13 @@ export function Settings({ language, darkMode, onLanguageChange, onDarkModeToggl
                     </Badge>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    {language === 'sw' 
+                    {language === 'sw'
                       ? 'Till 403321 · Binafsi 07xxxxxxx'
                       : 'Till 403321 · Personal 07xxxxxxx'}
                   </p>
                   <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
                     <Clock className="h-3 w-3" />
-                    {language === 'sw' 
+                    {language === 'sw'
                       ? 'Ilisasishwa dakika 2 zilizopita'
                       : 'Last sync 2 mins ago'}
                   </div>
@@ -206,7 +208,7 @@ export function Settings({ language, darkMode, onLanguageChange, onDarkModeToggl
                 <div>
                   <h4>{language === 'sw' ? 'Benki ya Equity' : 'Equity Bank'}</h4>
                   <p className="text-xs text-muted-foreground">
-                    {language === 'sw' 
+                    {language === 'sw'
                       ? 'Hiari - kwa mipango ya baadaye'
                       : 'Optional - for future plans'}
                   </p>
@@ -489,9 +491,20 @@ export function Settings({ language, darkMode, onLanguageChange, onDarkModeToggl
       </Card>
 
       {/* Version Info */}
-      <div className="text-center text-xs text-muted-foreground">
-        <p>Inua 360 v1.0.0</p>
-        <p>{language === 'sw' ? 'Imetengenezwa na upendo nchini Kenya 🇰🇪' : 'Made with love in Kenya 🇰🇪'}</p>
+      <div className="text-center text-xs text-muted-foreground space-y-4">
+        <div>
+          <p>Inua 360 v1.0.0</p>
+          <p>{language === 'sw' ? 'Imetengenezwa na upendo nchini Kenya 🇰🇪' : 'Made with love in Kenya 🇰🇪'}</p>
+        </div>
+
+        <Button
+          variant="destructive"
+          className="mx-auto gap-2"
+          onClick={onLogout}
+        >
+          <LogOut className="h-4 w-4" />
+          {language === 'sw' ? 'Ondoka' : 'Log Out'}
+        </Button>
       </div>
     </div>
   );

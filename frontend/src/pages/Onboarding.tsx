@@ -16,6 +16,7 @@ interface OnboardingProps {
 
 export function Onboarding({ onComplete }: OnboardingProps) {
   const [step, setStep] = useState(1);
+  const [profileSubStep, setProfileSubStep] = useState(1);
   const [language, setLanguage] = useState<'en' | 'sw'>('en');
   const [mpesaExpanded, setMpesaExpanded] = useState(false);
   const [mpesaAccountType, setMpesaAccountType] = useState<'till' | 'paybill' | 'pochi' | null>(null);
@@ -52,9 +53,29 @@ export function Onboarding({ onComplete }: OnboardingProps) {
 
 
   const totalSteps = 3;
-  const progress = (step / totalSteps) * 100;
+
+  // Calculate granular progress
+  let progress = 0;
+  if (step === 1) progress = 15;
+  else if (step === 2) {
+    if (profileSubStep === 1) progress = 30;
+    if (profileSubStep === 2) progress = 50;
+    if (profileSubStep === 3) progress = 70;
+  } else if (step === 3) progress = 90;
 
   const handleNext = () => {
+    // Step 2 Wizard Logic
+    if (step === 2) {
+      if (profileSubStep < 3) {
+        // Validate sub-steps
+        if (profileSubStep === 1 && (!formData.businessName || !formData.sector)) return;
+        if (profileSubStep === 2 && (!formData.county || !formData.revenueRange)) return;
+
+        setProfileSubStep(profileSubStep + 1);
+        return;
+      }
+    }
+
     if (step < totalSteps) {
       setStep(step + 1);
     } else {
@@ -63,6 +84,10 @@ export function Onboarding({ onComplete }: OnboardingProps) {
   };
 
   const handleBack = () => {
+    if (step === 2 && profileSubStep > 1) {
+      setProfileSubStep(profileSubStep - 1);
+      return;
+    }
     if (step > 1) setStep(step - 1);
   };
 
@@ -376,107 +401,178 @@ export function Onboarding({ onComplete }: OnboardingProps) {
             </div>
           )}
 
-          {/* Step 2: Profile Builder */}
+          {/* Step 2: Profile Builder Wizard - Broken into 3 Micro-Steps */}
           {step === 2 && (
             <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
-              <div className="text-center space-y-2">
-                <AgentAvatar agentId="profile" size="lg" status="active" showPulse />
-                <h2>{language === 'sw' ? 'Wasifu wa Biashara' : 'Business Profile'}</h2>
-                <p className="animated-subtitle">
-                  {language === 'sw'
-                    ? 'Tuambie kuhusu biashara yako'
-                    : 'Tell us about your business'}
-                </p>
+              {/* Wizard Progress Indicator */}
+              <div className="flex items-center gap-2 mb-6">
+                <div className={`h-1.5 flex-1 rounded-full transition-colors ${profileSubStep >= 1 ? 'bg-orange-500' : 'bg-muted'}`} />
+                <div className={`h-1.5 flex-1 rounded-full transition-colors ${profileSubStep >= 2 ? 'bg-orange-500' : 'bg-muted'}`} />
+                <div className={`h-1.5 flex-1 rounded-full transition-colors ${profileSubStep >= 3 ? 'bg-orange-500' : 'bg-muted'}`} />
               </div>
 
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="businessName">
-                    {language === 'sw' ? 'Jina la Biashara' : 'Business Name'}
-                  </Label>
-                  <Input
-                    id="businessName"
-                    placeholder={language === 'sw' ? 'Jina la biashara yako' : 'Your business name'}
-                    value={formData.businessName}
-                    onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
-                  />
-                </div>
+              {/* Step 2a: Identity (Name & Sector) */}
+              {profileSubStep === 1 && (
+                <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
+                  <div className="text-center space-y-2">
+                    <AgentAvatar agentId="profile" size="lg" status="active" showPulse />
+                    <h2>{language === 'sw' ? 'Tuambie Kuhusu Biashara Yako' : 'Tell Us About Your Business'}</h2>
+                    <p className="text-muted-foreground">
+                      {language === 'sw' ? 'Hii inatusaidia kubinafsisha mawakala wako' : 'This helps us personalize your agents'}
+                    </p>
+                  </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="sector">{language === 'sw' ? 'Sekta' : 'Sector'}</Label>
-                  <Select value={formData.sector} onValueChange={(value) => setFormData({ ...formData, sector: value })}>
-                    <SelectTrigger id="sector">
-                      <SelectValue placeholder={language === 'sw' ? 'Chagua sekta' : 'Select sector'} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {KENYAN_SECTORS.map((sector) => (
-                        <SelectItem key={sector.value} value={sector.value}>
-                          {sector.icon} {language === 'sw' ? sector.labelSwahili : sector.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="businessName" className="text-base">
+                        {language === 'sw' ? 'Jina la Biashara' : 'Business Name'}
+                      </Label>
+                      <Input
+                        id="businessName"
+                        placeholder={language === 'sw' ? 'Mfano: Mama Fua Laundry' : 'Ex: Mama Fua Laundry'}
+                        value={formData.businessName}
+                        onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
+                        className="h-14 text-lg"
+                        autoFocus
+                      />
+                    </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="county">{language === 'sw' ? 'Kaunti' : 'County'}</Label>
-                  <Select value={formData.county} onValueChange={(value) => setFormData({ ...formData, county: value })}>
-                    <SelectTrigger id="county">
-                      <SelectValue placeholder={language === 'sw' ? 'Chagua kaunti' : 'Select county'} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {KENYAN_COUNTIES.map((county) => (
-                        <SelectItem key={county.value} value={county.value}>
-                          {county.flag} {county.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="revenue">
-                    {language === 'sw' ? 'Mapato ya Mwezi' : 'Monthly Revenue'} (KES)
-                  </Label>
-                  <Select value={formData.revenueRange} onValueChange={(value) => setFormData({ ...formData, revenueRange: value })}>
-                    <SelectTrigger id="revenue" className="h-12">
-                      <div className="flex items-center gap-2">
-                        <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                        <SelectValue placeholder={language === 'sw' ? 'Chagua mapato' : 'Select revenue range'} />
+                    <div className="space-y-3">
+                      <Label className="text-base">{language === 'sw' ? 'Sekta' : 'Sector'}</Label>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        {KENYAN_SECTORS.map((sector) => (
+                          <div
+                            key={sector.value}
+                            onClick={() => setFormData({ ...formData, sector: sector.value })}
+                            className={`
+                              cursor-pointer relative p-4 rounded-xl border-2 transition-all duration-200 hover:border-orange-500/50 hover:bg-orange-500/5
+                              ${formData.sector === sector.value
+                                ? 'border-orange-500 bg-orange-500/10 ring-2 ring-orange-500/20'
+                                : 'border-border bg-card'
+                              }
+                            `}
+                          >
+                            <div className="flex flex-col items-center gap-2 text-center">
+                              <span className="text-2xl">{sector.icon}</span>
+                              <span className="text-sm font-medium leading-tight">
+                                {language === 'sw' ? sector.labelSwahili : sector.label}
+                              </span>
+                            </div>
+                            {formData.sector === sector.value && (
+                              <div className="absolute top-2 right-2 text-orange-600">
+                                <CheckCircle className="h-4 w-4 fill-orange-500 text-white" />
+                              </div>
+                            )}
+                          </div>
+                        ))}
                       </div>
-                    </SelectTrigger>
-                    <SelectContent>
-                      {REVENUE_RANGES.map((range) => (
-                        <SelectItem key={range.value} value={range.value} className="py-3">
-                          <span className="font-medium">
-                            {language === 'sw' ? range.labelSwahili : range.label}
-                          </span>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                    </div>
+                  </div>
                 </div>
+              )}
 
-                <div className="space-y-3">
-                  <Label>{language === 'sw' ? 'Changamoto Kuu' : 'Main Challenges'}</Label>
+              {/* Step 2b: Scale (Location & Revenue) */}
+              {profileSubStep === 2 && (
+                <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
+                  <div className="text-center space-y-2">
+                    <TrendingUp className="h-10 w-10 text-emerald-500 mx-auto" />
+                    <h2>{language === 'sw' ? 'Eneo na Ukubwa' : 'Location & Scale'}</h2>
+                    <p className="text-muted-foreground">
+                      {language === 'sw' ? 'Tunalinganisha fursa kulingana na eneo lako' : 'We match opportunities based on your location'}
+                    </p>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <Label className="text-base">{language === 'sw' ? 'Kaunti' : 'County'}</Label>
+                      <Select value={formData.county} onValueChange={(value) => setFormData({ ...formData, county: value })}>
+                        <SelectTrigger id="county" className="h-14 text-lg">
+                          <SelectValue placeholder={language === 'sw' ? 'Chagua kaunti' : 'Select county'} />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-64">
+                          {KENYAN_COUNTIES.map((county) => (
+                            <SelectItem key={county.value} value={county.value} className="py-3">
+                              <span className="text-2xl mr-2">{county.flag}</span>
+                              <span className="font-medium text-base">{county.label}</span>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-3">
+                      <Label className="text-base">
+                        {language === 'sw' ? 'Mapato ya Mwezi' : 'Monthly Revenue'} (KES)
+                      </Label>
+                      <div className="grid gap-3">
+                        {REVENUE_RANGES.map((range) => (
+                          <div
+                            key={range.value}
+                            onClick={() => setFormData({ ...formData, revenueRange: range.value })}
+                            className={`
+                              cursor-pointer p-4 rounded-xl border-2 transition-all flex items-center justify-between
+                              ${formData.revenueRange === range.value
+                                ? 'border-emerald-500 bg-emerald-500/10'
+                                : 'border-border hover:bg-muted'
+                              }
+                            `}
+                          >
+                            <span className="font-medium text-lg">
+                              {language === 'sw' ? range.labelSwahili : range.label}
+                            </span>
+                            {formData.revenueRange === range.value && (
+                              <CheckCircle className="h-5 w-5 text-emerald-600" />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 2c: Context (Challenges) */}
+              {profileSubStep === 3 && (
+                <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
+                  <div className="text-center space-y-2">
+                    <Shield className="h-10 w-10 text-orange-500 mx-auto" />
+                    <h2>{language === 'sw' ? 'Unapitia Changamoto Gani?' : 'What are your Main Challenges?'}</h2>
+                    <p className="text-muted-foreground">
+                      {language === 'sw' ? 'Chagua zote zinazokuhusu' : 'Select all that apply'}
+                    </p>
+                  </div>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {challenges.map((challenge) => (
-                      <div key={challenge.id} className="flex items-center gap-2">
-                        <Checkbox
-                          id={challenge.id}
-                          checked={formData.challenges.includes(challenge.id)}
-                          onCheckedChange={() => toggleChallenge(challenge.id)}
-                        />
-                        <Label htmlFor={challenge.id} className="cursor-pointer">
-                          {language === 'sw' ? challenge.labelSw : challenge.label}
-                        </Label>
+                      <div
+                        key={challenge.id}
+                        onClick={() => toggleChallenge(challenge.id)}
+                        className={`
+                          cursor-pointer p-4 rounded-xl border-2 transition-all duration-200 relative overflow-hidden group
+                          ${formData.challenges.includes(challenge.id)
+                            ? 'border-orange-500 bg-orange-500/5'
+                            : 'border-border hover:border-orange-500/30'
+                          }
+                        `}
+                      >
+                        <div className="flex items-start gap-3 relative z-10">
+                          <Checkbox
+                            id={challenge.id}
+                            checked={formData.challenges.includes(challenge.id)}
+                            onCheckedChange={() => toggleChallenge(challenge.id)}
+                            className="mt-1"
+                          />
+                          <div>
+                            <span className={`font-medium block ${formData.challenges.includes(challenge.id) ? 'text-orange-700 dark:text-orange-300' : ''}`}>
+                              {language === 'sw' ? challenge.labelSw : challenge.label}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
-
-
-              </div>
+              )}
             </div>
           )}
 
@@ -610,10 +706,11 @@ export function Onboarding({ onComplete }: OnboardingProps) {
             )}
             <Button
               onClick={handleNext}
-              className={`flex-1 gap-2 btn-premium animate-button-glow h-12 text-base rounded-xl ${step === 1 ? '' : ''
-                }`}
+              className={`flex-1 gap-2 btn-premium animate-button-glow h-12 text-base rounded-xl`}
               disabled={
-                (step === 2 && (!formData.businessName || !formData.sector || !formData.county || !formData.revenueRange)) ||
+                (step === 2 && profileSubStep === 1 && (!formData.businessName || !formData.sector)) ||
+                (step === 2 && profileSubStep === 2 && (!formData.county || !formData.revenueRange)) ||
+                (step === 2 && profileSubStep === 3 && formData.challenges.length === 0) ||
                 (step === 3 && (!formData.autonomyEnabled || formData.notificationChannels.length === 0))
               }
             >
@@ -621,9 +718,11 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                 ? language === 'sw'
                   ? 'Anza Kujitegemea'
                   : 'Start Autonomy'
-                : language === 'sw'
-                  ? 'Endelea'
-                  : 'Continue'}
+                : (step === 2 && profileSubStep < 3)
+                  ? language === 'sw' ? 'Endelea' : 'Next' // Sub-step next
+                  : language === 'sw'
+                    ? 'Endelea'
+                    : 'Continue'}
               <ChevronRight className="h-5 w-5" />
             </Button>
           </div>
