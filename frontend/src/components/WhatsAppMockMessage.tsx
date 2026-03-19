@@ -55,7 +55,7 @@ Anything today?
         <div className="relative">
           <div className="bg-[#DCF8C6] rounded-lg rounded-tl-none p-4 shadow-sm">
             <div className="flex items-start gap-2 mb-2">
-              <span className="text-xs font-semibold text-success">Inua 360</span>
+              <span className="text-xs font-semibold text-success">Inua360</span>
             </div>
             <pre className="whitespace-pre-wrap font-sans text-sm text-gray-800">
               {message}

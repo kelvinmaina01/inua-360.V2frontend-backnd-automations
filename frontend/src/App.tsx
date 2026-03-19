@@ -18,9 +18,10 @@ import { Chat } from './pages/Chat';
 import { Settings } from './pages/Settings';
 import { LandingPage } from './pages/LandingPage';
 import { AuthPage } from './pages/Auth';
+import { Notifications } from './pages/Notifications';
 import { InuaLogo } from './components/InuaLogo';
 import { Button } from './components/ui/button';
-import { Wifi, WifiOff, Menu, Loader2 } from 'lucide-react';
+import { Wifi, WifiOff, Menu, Loader2, Bell, User } from 'lucide-react';
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner';
 
@@ -104,7 +105,7 @@ export default function App() {
     setHasCompletedOnboarding(true);
 
     toast.success(
-      t('notifications.welcome', 'Welcome to Inua 360!'),
+      t('notifications.welcome', 'Welcome to Inua360!'),
       {
         description: t('notifications.welcome_desc', 'Your profile is ready. Your agents are getting to work!'),
         duration: 5000
@@ -214,6 +215,8 @@ export default function App() {
         return <Compliance language={language} onNavigate={handleNavigate} />;
       case '/credit-score':
         return <CreditScore language={language} onNavigate={handleNavigate} />;
+      case '/notifications':
+        return <Notifications language={language} />;
       case '/profile':
         return <Profile language={language} />;
       case '/chat':
@@ -246,25 +249,29 @@ export default function App() {
 
         {/* Main Content */}
         <div className="flex-1 min-w-0">
-          {/* Mobile Header */}
-          <header className="lg:hidden sticky top-0 z-40 bg-card border-b border-border">
+          {/* Mobile Header - Glassmorphism */}
+          <header className="lg:hidden sticky top-0 z-40 backdrop-blur-xl bg-white/70 dark:bg-black/50 border-b border-white/20">
             <div className="flex items-center justify-between p-4">
               <div className="flex items-center gap-3">
+                <h2 className="text-primary font-bold">Inua360</h2>
+              </div>
+              <div className="flex items-center gap-1">
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setShowMobileMenu(!showMobileMenu)}
+                  onClick={() => setCurrentRoute('/notifications')}
+                  className="hover:bg-white/50 rounded-full"
                 >
-                  <Menu className="h-5 w-5" />
+                  <Bell className="h-5 w-5" />
                 </Button>
-                <h2 className="text-primary">Inua 360</h2>
-              </div>
-              <div className="flex items-center gap-2">
-                {!isOnline && (
-                  <div className="flex items-center gap-1 text-muted-foreground">
-                    <WifiOff className="h-4 w-4" />
-                  </div>
-                )}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setCurrentRoute('/profile')}
+                  className="hover:bg-white/50 rounded-full"
+                >
+                  <User className="h-5 w-5" />
+                </Button>
                 <LanguageSwitcher />
               </div>
             </div>
@@ -313,8 +320,8 @@ export default function App() {
             </div>
           </header>
 
-          {/* Page Content */}
-          <main className="p-4 sm:p-6 lg:p-8 pb-24 lg:pb-8">
+          {/* Page Content - Glassmorphism for mobile */}
+          <main className="lg:px-4 pb-28 lg:pb-8">
             <div className="max-w-7xl mx-auto">{renderPage()}</div>
           </main>
 

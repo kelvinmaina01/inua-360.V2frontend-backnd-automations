@@ -61,8 +61,8 @@ export function MPesaConnectOnboarding({ language, onComplete }: MPesaConnectOnb
               </h2>
               <p className="text-muted-foreground">
                 {language === 'sw'
-                  ? 'Ruhusu Inua 360 kusoma miamala yako ya M-Pesa (jumla na makundi tu, imefungwa kabisa)'
-                  : 'Let Inua 360 read your M-Pesa transactions (only totals & categories, fully encrypted)'}
+                  ? 'Ruhusu Inua360 kusoma miamala yako ya M-Pesa (jumla na makundi tu, imefungwa kabisa)'
+                  : 'Let Inua360 read your M-Pesa transactions (only totals & categories, fully encrypted)'}
               </p>
             </div>
 
@@ -264,8 +264,8 @@ export function MPesaConnectOnboarding({ language, onComplete }: MPesaConnectOnb
                       </h2>
                       <p className="text-muted-foreground">
                         {language === 'sw'
-                          ? 'Inua 360 inahitaji idhini yako kufikia takwimu za M-Pesa'
-                          : 'Inua 360 needs your permission to access M-Pesa statistics'}
+                          ? 'Inua360 inahitaji idhini yako kufikia takwimu za M-Pesa'
+                          : 'Inua360 needs your permission to access M-Pesa statistics'}
                       </p>
                     </div>
 
@@ -281,8 +281,8 @@ export function MPesaConnectOnboarding({ language, onComplete }: MPesaConnectOnb
                       <div className="space-y-2 text-sm">
                         <p className="font-medium">
                           {language === 'sw' 
-                            ? 'Inua 360 itapata ufikiaji wa:' 
-                            : 'Inua 360 will get access to:'}
+                            ? 'Inua360 itapata ufikiaji wa:' 
+                            : 'Inua360 will get access to:'}
                         </p>
                         <ul className="space-y-1 text-muted-foreground">
                           <li className="flex items-start gap-2">

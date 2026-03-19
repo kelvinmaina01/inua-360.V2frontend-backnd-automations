@@ -9,7 +9,7 @@ interface InuaLogoProps {
 }
 
 /**
- * Inua 360 Logo with optional slogan
+ * Bizzy Logo with optional slogan
  * Uses the official Inua360 brand logo
  */
 export function InuaLogo({
@@ -32,7 +32,7 @@ export function InuaLogo({
         <div className={cn('relative inline-flex flex-col items-center gap-1', className)}>
             <div className="relative">
                 <img
-                    src="/assets/logo_360.jpg"
+                    src="/assets/inua360-logo.png"
                     alt="Inua360"
                     className={cn(sizeMap[size], 'object-contain')}
                 />

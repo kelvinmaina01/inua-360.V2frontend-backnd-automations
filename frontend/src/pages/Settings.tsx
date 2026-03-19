@@ -493,7 +493,7 @@ export function Settings({ language, darkMode, onLanguageChange, onDarkModeToggl
       {/* Version Info */}
       <div className="text-center text-xs text-muted-foreground space-y-4">
         <div>
-          <p>Inua 360 v1.0.0</p>
+          <p>Inua360 v1.0.0</p>
           <p>{language === 'sw' ? 'Imetengenezwa na upendo nchini Kenya 🇰🇪' : 'Made with love in Kenya 🇰🇪'}</p>
         </div>
 

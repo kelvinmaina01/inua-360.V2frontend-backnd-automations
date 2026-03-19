@@ -119,7 +119,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
           <div className="flex items-center gap-3">
             <InuaLogo size="md" showSlogan={false} showPulse />
             <div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">Inua 360</h1>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">Inua360</h1>
               <p className="text-sm text-muted-foreground">
                 {language === 'sw' ? 'Wakala wako wa SME AI' : 'Your SME AI Agent'}
               </p>
@@ -159,7 +159,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
               {/* Welcome Header */}
               <div className="text-center space-y-4">
                 <h2 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-                  {language === 'sw' ? 'Karibu Inua 360!' : 'Welcome to Inua 360!'}
+                  {language === 'sw' ? 'Karibu Inua360!' : 'Welcome to Inua360!'}
                 </h2>
                 <p className="text-lg text-muted-foreground">
                   {language === 'sw'

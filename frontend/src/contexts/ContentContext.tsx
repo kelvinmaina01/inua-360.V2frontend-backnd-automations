@@ -24,7 +24,7 @@ export function ContentProvider({ children }: { children: ReactNode }) {
         'notifications.dark_mode_disabled': { en: 'Dark Mode Disabled', sw: 'Hali ya Giza Imezimwa' },
         'notifications.language_changed': { en: 'Language changed', sw: 'Lugha imebadilishwa' },
         'notifications.logged_out': { en: 'Logged out successfully', sw: 'Umeondoka kikamilifu' },
-        'notifications.welcome': { en: 'Welcome to Inua 360!', sw: 'Karibu Inua 360!' },
+        'notifications.welcome': { en: 'Welcome to Inua360!', sw: 'Karibu Inua360!' },
         'notifications.welcome_desc': { en: 'Your profile is ready. Your agents are getting to work!', sw: 'Wasifu wako umeundwa. Mawakala wako wanaanza kazi!' },
         'notifications.autonomy_on': { en: 'Autonomy Mode Enabled', sw: 'Hali ya Kujitegemea Imewashwa' },
         'notifications.autonomy_on_desc': { en: 'Your agents are now working on your behalf', sw: 'Mawakala wako sasa wanafanya kazi kwa niaba yako' },
