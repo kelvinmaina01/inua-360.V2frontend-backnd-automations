@@ -7,7 +7,7 @@ interface WhatsAppMockMessageProps {
 }
 
 export function WhatsAppMockMessage({ language }: WhatsAppMockMessageProps) {
-  const message = language === 'sw' 
+  const message = language === 'sw'
     ? `Habari John! ☀️
 
 Janalimefanya KES 84,200
@@ -58,12 +58,12 @@ Anything today?
               <span className="text-xs font-semibold text-success">Inua 360</span>
             </div>
             <pre className="whitespace-pre-wrap font-sans text-sm text-gray-800">
-{message}
+              {message}
             </pre>
             <div className="flex items-center justify-end gap-1 mt-2">
               <span className="text-[10px] text-gray-500">08:00</span>
-              <svg className="h-4 w-4 text-blue-500" viewBox="0 0 16 15" fill="currentColor">
-                <path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z"/>
+              <svg className="h-4 w-4 text-secondary" viewBox="0 0 16 15" fill="currentColor">
+                <path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.511zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z" />
               </svg>
             </div>
           </div>

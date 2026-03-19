@@ -1,10 +1,10 @@
 import { cn } from '../lib/utils';
+import { useContent } from '../hooks/useContent';
 
 interface InuaLogoProps {
     size?: 'sm' | 'md' | 'lg' | 'xl';
     showPulse?: boolean;
     showSlogan?: boolean;
-    language?: 'en' | 'sw';
     className?: string;
 }
 
@@ -16,9 +16,9 @@ export function InuaLogo({
     size = 'md',
     showPulse = false,
     showSlogan = true,
-    language = 'en',
     className
 }: InuaLogoProps) {
+    const { language } = useContent();
     const sizeMap = {
         sm: 'h-8',
         md: 'h-12',
@@ -32,7 +32,7 @@ export function InuaLogo({
         <div className={cn('relative inline-flex flex-col items-center gap-1', className)}>
             <div className="relative">
                 <img
-                    src="/assets/inua360-logo.png"
+                    src="/assets/logo_360.jpg"
                     alt="Inua360"
                     className={cn(sizeMap[size], 'object-contain')}
                 />
@@ -40,8 +40,8 @@ export function InuaLogo({
                 {/* Active indicator dot */}
                 {showPulse && (
                     <span className="absolute -bottom-0.5 -right-0.5 flex h-3 w-3">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500" />
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/75 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-primary" />
                     </span>
                 )}
             </div>

@@ -1,17 +1,19 @@
 import { Globe } from 'lucide-react';
 import { Button } from './ui/button';
+import { useContent } from '../hooks/useContent';
 
-interface LanguageSwitcherProps {
-  language: 'en' | 'sw';
-  onLanguageChange: (lang: 'en' | 'sw') => void;
-}
+export function LanguageSwitcher() {
+  const { language, setLanguage } = useContent();
 
-export function LanguageSwitcher({ language, onLanguageChange }: LanguageSwitcherProps) {
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'sw' : 'en');
+  };
+
   return (
     <Button
       variant="ghost"
       size="sm"
-      onClick={() => onLanguageChange(language === 'en' ? 'sw' : 'en')}
+      onClick={toggleLanguage}
       className="gap-2 touch-target"
     >
       <Globe className="h-4 w-4" />

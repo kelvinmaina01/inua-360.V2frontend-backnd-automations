@@ -2,35 +2,36 @@ import { Home, Activity, Wallet, Shield, User, MessageCircle, Settings, Power, B
 import { cn } from '../lib/utils';
 import { InuaLogo } from './InuaLogo';
 import { Switch } from './ui/switch';
+import { useContent } from '../hooks/useContent';
 
 interface SidebarProps {
   currentRoute: string;
   onNavigate: (route: string) => void;
-  language: 'en' | 'sw';
   autonomyMode: boolean;
   onAutonomyToggle: (enabled: boolean) => void;
 }
 
 const NAV_ITEMS = [
-  { id: 'home', icon: Home, label: 'Home', labelSw: 'Nyumbani', route: '/' },
-  { id: 'analytics', icon: BarChart3, label: 'Analytics', labelSw: 'Takwimu', route: '/analytics' },
-  { id: 'feed', icon: Activity, label: 'Agent Feed', labelSw: 'Mawakala', route: '/feed' },
-  { id: 'money', icon: Wallet, label: 'Money', labelSw: 'Fedha', route: '/money' },
-  { id: 'compliance', icon: Shield, label: 'Compliance', labelSw: 'Kinga', route: '/compliance' },
-  { id: 'profile', icon: User, label: 'Profile', labelSw: 'Wasifu', route: '/profile' },
-  { id: 'chat', icon: MessageCircle, label: 'Chat', labelSw: 'Ongea', route: '/chat' },
-  { id: 'settings', icon: Settings, label: 'Settings', labelSw: 'Mipangilio', route: '/settings' }
+  { id: 'home', icon: Home, labelKey: 'nav.home', fallback: 'Home', route: '/' },
+  { id: 'analytics', icon: BarChart3, labelKey: 'nav.analytics', fallback: 'Analytics', route: '/analytics' },
+  { id: 'feed', icon: Activity, labelKey: 'nav.feed', fallback: 'Agent Feed', route: '/feed' },
+  { id: 'money', icon: Wallet, labelKey: 'nav.money', fallback: 'Money', route: '/money' },
+  { id: 'compliance', icon: Shield, labelKey: 'nav.compliance', fallback: 'Compliance', route: '/compliance' },
+  { id: 'profile', icon: User, labelKey: 'nav.profile', fallback: 'Profile', route: '/profile' },
+  { id: 'chat', icon: MessageCircle, labelKey: 'nav.chat', fallback: 'Chat', route: '/chat' },
+  { id: 'settings', icon: Settings, labelKey: 'nav.settings', fallback: 'Settings', route: '/settings' }
 ];
 
-export function Sidebar({ currentRoute, onNavigate, language, autonomyMode, onAutonomyToggle }: SidebarProps) {
+export function Sidebar({ currentRoute, onNavigate, autonomyMode, onAutonomyToggle }: SidebarProps) {
+  const { language, t } = useContent();
+
   return (
-    <aside className="hidden lg:flex flex-col w-64 bg-card border-r border-border h-screen sticky top-0">
+    <aside className="lg:flex flex-col w-64 bg-card border-r border-border h-screen sticky top-0 max-lg:hidden">
       <div className="p-6 border-b border-border">
         <InuaLogo
           size="md"
           showSlogan={true}
           showPulse={autonomyMode}
-          language={language}
         />
       </div>
 
@@ -38,7 +39,7 @@ export function Sidebar({ currentRoute, onNavigate, language, autonomyMode, onAu
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
           const isActive = currentRoute === item.route;
-          const label = language === 'sw' ? item.labelSw : item.label;
+          const label = t(item.labelKey, item.fallback);
 
           return (
             <button
@@ -63,7 +64,7 @@ export function Sidebar({ currentRoute, onNavigate, language, autonomyMode, onAu
           <div className="flex items-center gap-2">
             <Power className="h-4 w-4 text-muted-foreground" />
             <span className="text-muted-foreground">
-              {language === 'sw' ? 'Hali ya Kujitegemea' : 'Autonomy Mode'}
+              {t('sidebar.autonomy', 'Autonomy Mode')}
             </span>
           </div>
           <Switch checked={autonomyMode} onCheckedChange={onAutonomyToggle} />

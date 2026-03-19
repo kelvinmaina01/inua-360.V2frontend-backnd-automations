@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useContent } from './hooks/useContent';
+import { useAuth } from './contexts/AuthContext';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { BottomNav } from './components/BottomNav';
 import { Sidebar } from './components/Sidebar';
@@ -14,31 +16,41 @@ import { CreditScore } from './pages/CreditScore';
 import { Profile } from './pages/Profile';
 import { Chat } from './pages/Chat';
 import { Settings } from './pages/Settings';
+import { LandingPage } from './pages/LandingPage';
+import { AuthPage } from './pages/Auth';
+import { InuaLogo } from './components/InuaLogo';
 import { Button } from './components/ui/button';
-import { Wifi, WifiOff, Menu } from 'lucide-react';
+import { Wifi, WifiOff, Menu, Loader2 } from 'lucide-react';
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner';
 
 export default function App() {
+  const { language, setLanguage, t } = useContent();
+  const { user, firebaseUser, loading: authLoading, signOut: firebaseSignOutAuth } = useAuth();
+  const [showLanding, setShowLanding] = useState(true);
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(false);
   const [currentRoute, setCurrentRoute] = useState('/');
-  const [language, setLanguage] = useState<'en' | 'sw'>('en');
+
   const [darkMode, setDarkMode] = useState(false);
   const [autonomyMode, setAutonomyMode] = useState(true);
   const [isOnline, setIsOnline] = useState(true);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  // Sync onboarding status with user profile
+  useEffect(() => {
+    if (user) {
+      setHasCompletedOnboarding(user.hasCompletedOnboarding || false);
+    }
+  }, [user]);
 
   // Simulate online/offline detection
   useEffect(() => {
     const handleOnline = () => {
       setIsOnline(true);
       toast.success(
-        language === 'sw' ? 'Umerudi mtandaoni' : 'Back online',
+        t('notifications.online', 'Back online'),
         {
-          description:
-            language === 'sw'
-              ? 'Data inasawazishwa...'
-              : 'Syncing data...',
+          description: t('notifications.syncing', 'Syncing data...'),
           duration: 3000
         }
       );
@@ -47,12 +59,9 @@ export default function App() {
     const handleOffline = () => {
       setIsOnline(false);
       toast.warning(
-        language === 'sw' ? 'Nje ya mtandao' : 'You are offline',
+        t('notifications.offline', 'You are offline'),
         {
-          description:
-            language === 'sw'
-              ? 'Unaweza kuendelea kutumia programu'
-              : 'You can continue using the app',
+          description: t('notifications.offline_desc', 'You can continue using the app'),
           duration: 5000
         }
       );
@@ -80,12 +89,9 @@ export default function App() {
   useEffect(() => {
     if (hasCompletedOnboarding && autonomyMode) {
       toast.success(
-        language === 'sw' ? 'Hali ya Kujitegemea Imewashwa' : 'Autonomy Mode Enabled',
+        t('notifications.autonomy_on', 'Autonomy Mode Enabled'),
         {
-          description:
-            language === 'sw'
-              ? 'Mawakala wako sasa wanafanya kazi kwa niaba yako'
-              : 'Your agents are now working on your behalf',
+          description: t('notifications.autonomy_on_desc', 'Your agents are now working on your behalf'),
           duration: 4000
         }
       );
@@ -98,12 +104,9 @@ export default function App() {
     setHasCompletedOnboarding(true);
 
     toast.success(
-      data.language === 'sw' ? 'Karibu Inua 360!' : 'Welcome to Inua 360!',
+      t('notifications.welcome', 'Welcome to Inua 360!'),
       {
-        description:
-          data.language === 'sw'
-            ? 'Wasifu wako umeundwa. Mawakala wako wanaanza kazi!'
-            : 'Your profile is ready. Your agents are getting to work!',
+        description: t('notifications.welcome_desc', 'Your profile is ready. Your agents are getting to work!'),
         duration: 5000
       }
     );
@@ -118,9 +121,9 @@ export default function App() {
   const handleLanguageChange = (lang: 'en' | 'sw') => {
     setLanguage(lang);
     toast.success(
-      lang === 'sw' ? 'Lugha imebadilishwa' : 'Language changed',
+      t('notifications.language_changed', 'Language changed'),
       {
-        description: lang === 'sw' ? 'Swahili' : 'English',
+        description: lang === 'sw' ? 'Kiswahili' : 'English',
         duration: 2000
       }
     );
@@ -129,13 +132,9 @@ export default function App() {
   const handleDarkModeToggle = (enabled: boolean) => {
     setDarkMode(enabled);
     toast.success(
-      language === 'sw'
-        ? enabled
-          ? 'Hali ya Giza Imewashwa'
-          : 'Hali ya Giza Imezimwa'
-        : enabled
-          ? 'Dark Mode Enabled'
-          : 'Dark Mode Disabled',
+      enabled
+        ? t('notifications.dark_mode_enabled', 'Dark Mode Enabled')
+        : t('notifications.dark_mode_disabled', 'Dark Mode Disabled'),
       { duration: 2000 }
     );
   };
@@ -144,18 +143,49 @@ export default function App() {
     setAutonomyMode(enabled);
   };
 
-  const handleLogout = () => {
-    setHasCompletedOnboarding(false);
-    setCurrentRoute('/');
-    setAutonomyMode(false); // Reset autonomy mode
+  const handleLogout = async () => {
+    try {
+      await firebaseSignOutAuth();
+      setHasCompletedOnboarding(false);
+      setShowLanding(true);
+      setCurrentRoute('/');
+      setAutonomyMode(false); // Reset autonomy mode
 
-    toast.success(
-      language === 'sw' ? 'Umeondoka kikamilifu' : 'Logged out successfully',
-      { duration: 2000 }
-    );
+      toast.success(
+        t('notifications.logged_out', 'Logged out successfully'),
+        { duration: 2000 }
+      );
+    } catch (error) {
+      toast.error('Logout failed');
+    }
   };
 
-  // Show onboarding if not completed
+  // 1. Splash Screen / Loading
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background">
+        <InuaLogo size="lg" className="mb-8 animate-pulse" />
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  // 2. Show Landing Page if not yet entered
+  if (showLanding && !firebaseUser) {
+    return <LandingPage onGetStarted={() => setShowLanding(false)} onLogin={() => setShowLanding(false)} />;
+  }
+
+  // 3. Show Auth Page if not logged in
+  if (!firebaseUser) {
+    return (
+      <>
+        <AuthPage />
+        <Toaster />
+      </>
+    );
+  }
+
+  // 4. Show onboarding if entering for the first time
   if (!hasCompletedOnboarding) {
     return (
       <>
@@ -210,7 +240,6 @@ export default function App() {
         <Sidebar
           currentRoute={currentRoute}
           onNavigate={handleNavigate}
-          language={language}
           autonomyMode={autonomyMode}
           onAutonomyToggle={handleAutonomyToggle}
         />
@@ -236,73 +265,51 @@ export default function App() {
                     <WifiOff className="h-4 w-4" />
                   </div>
                 )}
-                <LanguageSwitcher language={language} onLanguageChange={handleLanguageChange} />
+                <LanguageSwitcher />
               </div>
             </div>
           </header>
 
           {/* Desktop Header */}
-          <header className="hidden lg:flex items-center justify-between p-6 border-b border-border sticky top-0 z-40 bg-background">
+          <header className="lg:flex items-center justify-between p-6 border-b border-border sticky top-0 z-40 bg-background max-lg:hidden">
             <div className="flex items-center gap-4">
               <h2 className="text-muted-foreground">
                 {currentRoute === '/'
-                  ? language === 'sw'
-                    ? 'Dashibodi'
-                    : 'Dashboard'
+                  ? t('nav.dashboard', 'Dashboard')
                   : currentRoute === '/analytics'
-                    ? language === 'sw'
-                      ? 'Mawasiliano'
-                      : 'Analytics'
+                    ? t('nav.analytics', 'Analytics')
                     : currentRoute === '/feed'
-                      ? language === 'sw'
-                        ? 'Shughuli za Mawakala'
-                        : 'Agent Feed'
+                      ? t('nav.feed', 'Agent Feed')
                       : currentRoute === '/money'
-                        ? language === 'sw'
-                          ? 'Fedha'
-                          : 'Money'
+                        ? t('nav.money', 'Money')
                         : currentRoute === '/loan-readiness'
-                          ? language === 'sw'
-                            ? 'Uwezo wa Mkopo'
-                            : 'Loan Readiness'
+                          ? t('nav.loan_readiness', 'Loan Readiness')
                           : currentRoute === '/connect-mpesa'
-                            ? language === 'sw'
-                              ? 'Unganisha M-Pesa'
-                              : 'Connect M-Pesa'
+                            ? t('nav.connect_mpesa', 'Connect M-Pesa')
                             : currentRoute === '/compliance'
-                              ? language === 'sw'
-                                ? 'Kinga'
-                                : 'Compliance'
+                              ? t('nav.compliance', 'Compliance')
                               : currentRoute === '/credit-score'
-                                ? language === 'sw'
-                                  ? 'Alama ya Mkopo'
-                                  : 'Credit Score'
+                                ? t('nav.credit_score', 'Credit Score')
                                 : currentRoute === '/profile'
-                                  ? language === 'sw'
-                                    ? 'Wasifu'
-                                    : 'Profile'
+                                  ? t('nav.profile', 'Profile')
                                   : currentRoute === '/chat'
-                                    ? language === 'sw'
-                                      ? 'Ongea'
-                                      : 'Chat'
-                                    : language === 'sw'
-                                      ? 'Mipangilio'
-                                      : 'Settings'}
+                                    ? t('nav.chat', 'Chat')
+                                    : t('nav.settings', 'Settings')}
               </h2>
             </div>
             <div className="flex items-center gap-4">
               {isOnline ? (
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Wifi className="h-4 w-4 text-success" />
-                  <span>{language === 'sw' ? 'Mtandaoni' : 'Online'}</span>
+                  <span>{t('status.online', 'Online')}</span>
                 </div>
               ) : (
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <WifiOff className="h-4 w-4 text-destructive" />
-                  <span>{language === 'sw' ? 'Nje ya Mtandao' : 'Offline'}</span>
+                  <span>{t('status.offline', 'Offline')}</span>
                 </div>
               )}
-              <LanguageSwitcher language={language} onLanguageChange={handleLanguageChange} />
+              <LanguageSwitcher />
             </div>
           </header>
 
@@ -312,7 +319,7 @@ export default function App() {
           </main>
 
           {/* Mobile Bottom Navigation */}
-          <BottomNav currentRoute={currentRoute} onNavigate={handleNavigate} language={language} />
+          <BottomNav currentRoute={currentRoute} onNavigate={handleNavigate} />
         </div>
       </div>
 

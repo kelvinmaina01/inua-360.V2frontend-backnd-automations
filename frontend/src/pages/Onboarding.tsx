@@ -4,6 +4,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Checkbox } from '../components/ui/checkbox';
+import { Switch } from '../components/ui/switch';
 import { Progress } from '../components/ui/progress';
 import { AgentAvatar } from '../components/AgentAvatar';
 import { InuaLogo } from '../components/InuaLogo';
@@ -13,6 +14,7 @@ import { Globe, Smartphone, ChevronRight, ChevronDown, CheckCircle, Shield, Lock
 interface OnboardingProps {
   onComplete: (data: any) => void;
 }
+
 
 export function Onboarding({ onComplete }: OnboardingProps) {
   const [step, setStep] = useState(1);
@@ -117,7 +119,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
           <div className="flex items-center gap-3">
             <InuaLogo size="md" showSlogan={false} showPulse />
             <div>
-              <h1 className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">Inua 360</h1>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">Inua 360</h1>
               <p className="text-sm text-muted-foreground">
                 {language === 'sw' ? 'Wakala wako wa SME AI' : 'Your SME AI Agent'}
               </p>
@@ -136,7 +138,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
       </div>
 
       {/* Progress Bar */}
-      <div className="px-4 sm:px-6 py-4 border-b border-border bg-muted/30">
+      <div className="px-4 sm:px-6 py-4 border-b border-border bg-background">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-2">
             <span className="text-muted-foreground">
@@ -156,7 +158,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
             <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
               {/* Welcome Header */}
               <div className="text-center space-y-4">
-                <h2 className="text-3xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
                   {language === 'sw' ? 'Karibu Inua 360!' : 'Welcome to Inua 360!'}
                 </h2>
                 <p className="text-lg text-muted-foreground">
@@ -175,7 +177,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                   {/* Item 1 */}
                   <div className="flex gap-3 animate-fade-slide-in stagger-1">
                     <div className="animate-tick-pulse stagger-1">
-                      <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                      <CheckCircle className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
                     </div>
                     <div>
                       <p className="font-medium">
@@ -188,7 +190,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                   {/* Item 2 */}
                   <div className="flex gap-3 animate-fade-slide-in stagger-2">
                     <div className="animate-tick-pulse stagger-2">
-                      <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                      <CheckCircle className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
                     </div>
                     <div>
                       <p className="font-medium">
@@ -201,7 +203,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                   {/* Item 3 */}
                   <div className="flex gap-3 animate-fade-slide-in stagger-3">
                     <div className="animate-tick-pulse stagger-3">
-                      <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                      <CheckCircle className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
                     </div>
                     <div>
                       <p className="font-medium">
@@ -214,7 +216,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                   {/* Item 4 */}
                   <div className="flex gap-3 animate-fade-slide-in stagger-4">
                     <div className="animate-tick-pulse stagger-4">
-                      <CheckCircle className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                      <CheckCircle className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
                     </div>
                     <div>
                       <p className="font-medium">
@@ -235,8 +237,8 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                   onClick={() => setMpesaExpanded(!mpesaExpanded)}
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 p-3 rounded-xl bg-emerald-500/10 group-hover:bg-emerald-500/20 transition-colors">
-                      <Smartphone className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
+                    <div className="flex-shrink-0 p-3 rounded-xl bg-secondary/10 group-hover:bg-secondary/20 transition-colors">
+                      <Smartphone className="h-6 w-6 text-secondary" />
                     </div>
 
                     <div className="flex-1 space-y-2">
@@ -244,7 +246,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                         <h4 className="font-semibold text-foreground">
                           {language === 'sw' ? 'Ungana na M-Pesa ya Biashara' : 'Connect Business M-Pesa'}
                         </h4>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-medium">
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-secondary/10 text-secondary font-medium">
                           {language === 'sw' ? 'Inapendekezwa' : 'Recommended'}
                         </span>
                       </div>
@@ -257,11 +259,11 @@ export function Onboarding({ onComplete }: OnboardingProps) {
 
                       {/* Trust badges */}
                       <div className="flex flex-wrap gap-3 pt-1">
-                        <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400">
+                        <div className="flex items-center gap-1.5 text-xs text-secondary">
                           <Lock className="h-3.5 w-3.5" />
                           <span>{language === 'sw' ? 'Imefungwa' : 'Encrypted'}</span>
                         </div>
-                        <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400">
+                        <div className="flex items-center gap-1.5 text-xs text-secondary">
                           <Shield className="h-3.5 w-3.5" />
                           <span>{language === 'sw' ? 'Biashara tu' : 'Business only'}</span>
                         </div>
@@ -276,7 +278,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                 {/* Expanded Content - Account Type Selection */}
                 {mpesaExpanded && (
                   <div className="px-5 pb-5 space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                    <div className="border-t border-emerald-500/10 pt-4">
+                    <div className="border-t border-secondary/10 pt-4">
                       <Label className="text-sm font-medium mb-3 block">
                         {language === 'sw' ? 'Chagua aina ya akaunti:' : 'Select account type:'}
                       </Label>
@@ -286,21 +288,21 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                         {/* Till Number */}
                         <div
                           className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${mpesaAccountType === 'till'
-                            ? 'border-emerald-500 bg-emerald-500/5'
-                            : 'border-border hover:border-emerald-500/50'
+                            ? 'border-secondary bg-secondary/5'
+                            : 'border-border hover:border-secondary/50'
                             }`}
                           onClick={() => setMpesaAccountType('till')}
                         >
                           <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-orange-500/10">
-                              <Store className="h-5 w-5 text-orange-500" />
+                            <div className="p-2 rounded-lg bg-primary/10">
+                              <Store className="h-5 w-5 text-primary" />
                             </div>
                             <div className="flex-1">
                               <p className="font-medium">Till Number</p>
                               <p className="text-xs text-muted-foreground">Buy Goods & Services</p>
                             </div>
                             {mpesaAccountType === 'till' && (
-                              <CheckCircle className="h-5 w-5 text-emerald-500" />
+                              <CheckCircle className="h-5 w-5 text-secondary" />
                             )}
                           </div>
                           {mpesaAccountType === 'till' && (
@@ -319,21 +321,21 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                         {/* Paybill */}
                         <div
                           className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${mpesaAccountType === 'paybill'
-                            ? 'border-emerald-500 bg-emerald-500/5'
-                            : 'border-border hover:border-emerald-500/50'
+                            ? 'border-primary bg-primary/5'
+                            : 'border-border hover:border-primary/50'
                             }`}
                           onClick={() => setMpesaAccountType('paybill')}
                         >
                           <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-blue-500/10">
-                              <Wallet className="h-5 w-5 text-blue-500" />
+                            <div className="p-2 rounded-lg bg-primary/10">
+                              <Wallet className="h-5 w-5 text-primary" />
                             </div>
                             <div className="flex-1">
                               <p className="font-medium">Paybill</p>
                               <p className="text-xs text-muted-foreground">Business Paybill Number</p>
                             </div>
                             {mpesaAccountType === 'paybill' && (
-                              <CheckCircle className="h-5 w-5 text-emerald-500" />
+                              <CheckCircle className="h-5 w-5 text-secondary" />
                             )}
                           </div>
                           {mpesaAccountType === 'paybill' && (
@@ -357,21 +359,21 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                         {/* Pochi la Biashara */}
                         <div
                           className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${mpesaAccountType === 'pochi'
-                            ? 'border-emerald-500 bg-emerald-500/5'
-                            : 'border-border hover:border-emerald-500/50'
+                            ? 'border-secondary bg-secondary/5'
+                            : 'border-border hover:border-secondary/50'
                             }`}
                           onClick={() => setMpesaAccountType('pochi')}
                         >
                           <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-emerald-500/10">
-                              <Phone className="h-5 w-5 text-emerald-500" />
+                            <div className="p-2 rounded-lg bg-secondary/10">
+                              <Phone className="h-5 w-5 text-secondary" />
                             </div>
                             <div className="flex-1">
                               <p className="font-medium">Pochi la Biashara</p>
                               <p className="text-xs text-muted-foreground">Safaricom Business Wallet</p>
                             </div>
                             {mpesaAccountType === 'pochi' && (
-                              <CheckCircle className="h-5 w-5 text-emerald-500" />
+                              <CheckCircle className="h-5 w-5 text-secondary" />
                             )}
                           </div>
                           {mpesaAccountType === 'pochi' && (
@@ -406,9 +408,9 @@ export function Onboarding({ onComplete }: OnboardingProps) {
             <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
               {/* Wizard Progress Indicator */}
               <div className="flex items-center gap-2 mb-6">
-                <div className={`h-1.5 flex-1 rounded-full transition-colors ${profileSubStep >= 1 ? 'bg-orange-500' : 'bg-muted'}`} />
-                <div className={`h-1.5 flex-1 rounded-full transition-colors ${profileSubStep >= 2 ? 'bg-orange-500' : 'bg-muted'}`} />
-                <div className={`h-1.5 flex-1 rounded-full transition-colors ${profileSubStep >= 3 ? 'bg-orange-500' : 'bg-muted'}`} />
+                <div className={`h-1.5 flex-1 rounded-full transition-colors ${profileSubStep >= 1 ? 'bg-primary' : 'bg-muted'}`} />
+                <div className={`h-1.5 flex-1 rounded-full transition-colors ${profileSubStep >= 2 ? 'bg-primary' : 'bg-muted'}`} />
+                <div className={`h-1.5 flex-1 rounded-full transition-colors ${profileSubStep >= 3 ? 'bg-primary' : 'bg-muted'}`} />
               </div>
 
               {/* Step 2a: Identity (Name & Sector) */}
@@ -445,9 +447,9 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                             key={sector.value}
                             onClick={() => setFormData({ ...formData, sector: sector.value })}
                             className={`
-                              cursor-pointer relative p-4 rounded-xl border-2 transition-all duration-200 hover:border-orange-500/50 hover:bg-orange-500/5
+                              cursor-pointer relative p-4 rounded-xl border-2 transition-all duration-200 hover:border-primary/50 hover:bg-primary/5
                               ${formData.sector === sector.value
-                                ? 'border-orange-500 bg-orange-500/10 ring-2 ring-orange-500/20'
+                                ? 'border-primary bg-primary/10 ring-2 ring-primary/20'
                                 : 'border-border bg-card'
                               }
                             `}
@@ -459,8 +461,8 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                               </span>
                             </div>
                             {formData.sector === sector.value && (
-                              <div className="absolute top-2 right-2 text-orange-600">
-                                <CheckCircle className="h-4 w-4 fill-orange-500 text-white" />
+                              <div className="absolute top-2 right-2 text-primary">
+                                <CheckCircle className="h-4 w-4 fill-primary text-white" />
                               </div>
                             )}
                           </div>
@@ -475,7 +477,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
               {profileSubStep === 2 && (
                 <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
                   <div className="text-center space-y-2">
-                    <TrendingUp className="h-10 w-10 text-emerald-500 mx-auto" />
+                    <TrendingUp className="h-10 w-10 text-secondary mx-auto" />
                     <h2>{language === 'sw' ? 'Eneo na Ukubwa' : 'Location & Scale'}</h2>
                     <p className="text-muted-foreground">
                       {language === 'sw' ? 'Tunalinganisha fursa kulingana na eneo lako' : 'We match opportunities based on your location'}
@@ -512,7 +514,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                             className={`
                               cursor-pointer p-4 rounded-xl border-2 transition-all flex items-center justify-between
                               ${formData.revenueRange === range.value
-                                ? 'border-emerald-500 bg-emerald-500/10'
+                                ? 'border-secondary bg-secondary/10'
                                 : 'border-border hover:bg-muted'
                               }
                             `}
@@ -521,7 +523,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                               {language === 'sw' ? range.labelSwahili : range.label}
                             </span>
                             {formData.revenueRange === range.value && (
-                              <CheckCircle className="h-5 w-5 text-emerald-600" />
+                              <CheckCircle className="h-5 w-5 text-secondary" />
                             )}
                           </div>
                         ))}
@@ -535,7 +537,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
               {profileSubStep === 3 && (
                 <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
                   <div className="text-center space-y-2">
-                    <Shield className="h-10 w-10 text-orange-500 mx-auto" />
+                    <Shield className="h-10 w-10 text-primary mx-auto" />
                     <h2>{language === 'sw' ? 'Unapitia Changamoto Gani?' : 'What are your Main Challenges?'}</h2>
                     <p className="text-muted-foreground">
                       {language === 'sw' ? 'Chagua zote zinazokuhusu' : 'Select all that apply'}
@@ -550,8 +552,8 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                         className={`
                           cursor-pointer p-4 rounded-xl border-2 transition-all duration-200 relative overflow-hidden group
                           ${formData.challenges.includes(challenge.id)
-                            ? 'border-orange-500 bg-orange-500/5'
-                            : 'border-border hover:border-orange-500/30'
+                            ? 'border-primary bg-primary/5'
+                            : 'border-border hover:border-primary/30'
                           }
                         `}
                       >
@@ -563,7 +565,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                             className="mt-1"
                           />
                           <div>
-                            <span className={`font-medium block ${formData.challenges.includes(challenge.id) ? 'text-orange-700 dark:text-orange-300' : ''}`}>
+                            <span className={`font-medium block ${formData.challenges.includes(challenge.id) ? 'text-primary' : ''}`}>
                               {language === 'sw' ? challenge.labelSw : challenge.label}
                             </span>
                           </div>
@@ -591,76 +593,80 @@ export function Onboarding({ onComplete }: OnboardingProps) {
 
               <div className="space-y-4">
                 {/* Autonomy Mode Toggle */}
-                <div className="border border-border rounded-lg p-4 space-y-4">
-                  <div className="flex items-start gap-3">
-                    <Checkbox
-                      id="autonomy"
-                      checked={formData.autonomyEnabled}
-                      onCheckedChange={(checked) => setFormData({ ...formData, autonomyEnabled: checked as boolean })}
-                    />
-                    <div className="flex-1">
-                      <Label htmlFor="autonomy" className="cursor-pointer">
+                <div className="border border-border/80 rounded-xl p-6 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.05)] transition-all">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 space-y-1">
+                      <Label htmlFor="autonomy" className="text-lg font-bold cursor-pointer text-foreground">
                         {language === 'sw' ? 'Wezesha Hali ya Kujitegemea' : 'Enable Autonomy Mode'}
                       </Label>
-                      <p className="text-muted-foreground mt-1">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
                         {language === 'sw'
                           ? 'Mawakala watafanya kazi chinichini wakikagua ufuatiliaji, wasilishe maombi, na watakie fursa'
                           : 'Agents will work in the background scanning compliance, submitting applications, and finding opportunities'}
                       </p>
                     </div>
+                    <Switch
+                      id="autonomy"
+                      checked={formData.autonomyEnabled}
+                      onCheckedChange={(checked) => setFormData({ ...formData, autonomyEnabled: checked })}
+                      className="border-2 border-red-500"
+                    />
                   </div>
                 </div>
 
-                {/* Notification Channel Selection - Checkbox style */}
-                <div className="border border-border rounded-lg p-4 space-y-4">
-                  <div className="flex items-start gap-3">
-                    <Checkbox
-                      id="notifications"
-                      checked={formData.notificationChannels.length > 0}
-                      onCheckedChange={(checked) => {
-                        if (!checked) setFormData({ ...formData, notificationChannels: [] });
-                      }}
-                    />
-                    <div className="flex-1">
-                      <Label htmlFor="notifications" className="cursor-pointer">
+                {/* Notification Channel Selection */}
+                <div className="border border-border/80 rounded-xl p-6 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.05)] transition-all">
+                  <div className="flex items-start justify-between gap-4 mb-6">
+                    <div className="flex-1 space-y-1">
+                      <Label htmlFor="notifications" className="text-lg font-bold cursor-pointer text-foreground">
                         {language === 'sw' ? 'Ungana na Arifa' : 'Connect Notifications'}
                       </Label>
-                      <p className="text-muted-foreground mt-1">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
                         {language === 'sw'
                           ? 'Pata arifa na uidhinishe vitendo kupitia njia unayopendelea'
                           : 'Receive alerts and approve actions via your preferred channel'}
                       </p>
                     </div>
+                    <Switch
+                      id="notifications"
+                      checked={formData.notificationChannels.length > 0}
+                      onCheckedChange={(checked) => {
+                        if (!checked) setFormData({ ...formData, notificationChannels: [] });
+                        else if (formData.notificationChannels.length === 0) setFormData({ ...formData, notificationChannels: ['whatsapp'] });
+                      }}
+                      className="border-2 border-red-500"
+                    />
                   </div>
 
-                  {/* Channel selection - shown when checkbox is focused */}
-                  <div className="flex gap-2 pt-2 border-t border-border">
+                  <div className="flex flex-col sm:flex-row gap-3 pt-2 border-t border-border">
                     {[
-                      { id: 'whatsapp', label: 'WhatsApp', icon: MessageSquare, color: 'text-emerald-500', bg: 'bg-emerald-500/10', border: 'border-emerald-500' },
-                      { id: 'gmail', label: 'Gmail', icon: Mail, color: 'text-red-500', bg: 'bg-red-500/10', border: 'border-red-500' },
-                      { id: 'slack', label: 'Slack', icon: MessageSquare, color: 'text-purple-500', bg: 'bg-purple-500/10', border: 'border-purple-500' }
+                      { id: 'whatsapp', label: 'WhatsApp', logo: '/assets/logos/whatsapp.png', color: 'border-secondary' },
+                      { id: 'gmail', label: 'Gmail', logo: '/assets/logos/gmail.png', color: 'border-destructive' },
+                      { id: 'slack', label: 'Slack', logo: '/assets/logos/slack.png', color: 'border-primary' }
                     ].map((channel) => {
                       const Icon = channel.icon;
+                      const isSelected = formData.notificationChannels.includes(channel.id);
                       return (
-                        <button
+                        <Button
                           key={channel.id}
                           type="button"
-                          className={`flex-1 flex items-center justify-center gap-2 p-2.5 rounded-lg border-2 transition-all ${formData.notificationChannels.includes(channel.id)
-                            ? `${channel.border} ${channel.bg}`
-                            : 'border-border hover:border-muted-foreground/50'
+                          variant="outline"
+                          className={`flex-1 h-16 gap-3 rounded-xl transition-all duration-300 ${isSelected
+                            ? `${channel.color} bg-white ring-2 ring-primary/10 shadow-sm font-bold`
+                            : 'border-border hover:border-primary/50'
                             }`}
                           onClick={() => {
-                            const newChannels = formData.notificationChannels.includes(channel.id)
+                            const newChannels = isSelected
                               ? formData.notificationChannels.filter(c => c !== channel.id)
                               : [...formData.notificationChannels, channel.id];
                             setFormData({ ...formData, notificationChannels: newChannels });
                           }}
                         >
-                          <Icon className={`h-4 w-4 ${formData.notificationChannels.includes(channel.id) ? channel.color : 'text-muted-foreground'}`} />
-                          <span className={`text-sm font-medium ${formData.notificationChannels.includes(channel.id) ? '' : 'text-muted-foreground'}`}>
+                          <img src={channel.logo} alt={channel.label} className="h-6 w-auto object-contain" />
+                          <span className={`font-medium ${isSelected ? 'text-foreground' : 'text-muted-foreground'}`}>
                             {channel.label}
                           </span>
-                        </button>
+                        </Button>
                       );
                     })}
                   </div>
@@ -706,7 +712,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
             )}
             <Button
               onClick={handleNext}
-              className={`flex-1 gap-2 btn-premium animate-button-glow h-12 text-base rounded-xl`}
+              className={`flex-1 gap-2 btn-premium animate-button-glow h-12 text-base rounded-md`}
               disabled={
                 (step === 2 && profileSubStep === 1 && (!formData.businessName || !formData.sector)) ||
                 (step === 2 && profileSubStep === 2 && (!formData.county || !formData.revenueRange)) ||

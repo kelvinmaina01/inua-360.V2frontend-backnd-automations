@@ -216,9 +216,9 @@ export function ConnectMpesa({ language, onNavigate }: ConnectMpesaProps) {
       </div>
 
       {/* Warning Alert */}
-      <Alert className="border-yellow-200 bg-yellow-50">
-        <AlertTriangle className="h-4 w-4 text-yellow-600" />
-        <AlertDescription className="text-yellow-800">
+      <Alert className="border-warning/20 bg-warning/10">
+        <AlertTriangle className="h-4 w-4 text-warning" />
+        <AlertDescription className="text-foreground">
           <strong>{t.businessAccountWarning}:</strong> {t.warningMessage}
         </AlertDescription>
       </Alert>
@@ -377,13 +377,13 @@ export function ConnectMpesa({ language, onNavigate }: ConnectMpesaProps) {
           )}
 
           {/* Bank Coming Soon */}
-          <Card className="border-blue-200 bg-blue-50">
+          <Card className="border-primary/20 bg-primary/5">
             <CardContent className="pt-6">
               <div className="flex items-start gap-3">
-                <Building2 className="w-5 h-5 text-blue-600 mt-0.5" />
+                <Building2 className="w-5 h-5 text-primary mt-0.5" />
                 <div>
-                  <h4 className="font-semibold text-blue-900 mb-1">{t.bankComingSoon}</h4>
-                  <p className="text-sm text-blue-700">{t.bankMessage}</p>
+                  <h4 className="font-semibold text-primary mb-1">{t.bankComingSoon}</h4>
+                  <p className="text-sm text-muted-foreground">{t.bankMessage}</p>
                 </div>
               </div>
             </CardContent>

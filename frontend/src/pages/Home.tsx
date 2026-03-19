@@ -105,34 +105,34 @@ export function Home({ language, onNavigate, isOnline }: HomeProps) {
 
       {/* M-Pesa Connection Status */}
       {!isMpesaConnected && (
-        <Card className="p-6 border-l-4 border-l-blue-500 bg-blue-50/50">
+        <Card className="p-6 border-l-4 border-l-primary bg-primary/10">
           <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
             <div className="flex items-start gap-4 flex-1">
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <Smartphone className="h-6 w-6 text-blue-600" />
+              <div className="p-3 bg-primary/10 rounded-lg">
+                <Smartphone className="h-6 w-6 text-primary" />
               </div>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-blue-900">
+                  <h3 className="text-foreground">
                     {language === 'sw' ? 'Unganisha M-Pesa yako' : 'Connect Your M-Pesa'}
                   </h3>
-                  <Badge variant="outline" className="border-blue-300 text-blue-700">
+                  <Badge variant="outline" className="border-primary/30 text-primary">
                     {language === 'sw' ? 'Muhimu' : 'Required'}
                   </Badge>
                 </div>
-                <p className="text-sm text-blue-700">
+                <p className="text-sm text-muted-foreground">
                   {language === 'sw'
                     ? 'Unganisha akaunti yako ya M-Pesa ili kufuatilia mtiririko wa fedha kiotomatiki na kupata uwezo wa mkopo'
                     : 'Connect your M-Pesa business account to automatically track cash flow and get loan readiness insights'}
                 </p>
-                <div className="flex items-center gap-2 text-xs text-blue-600">
+                <div className="flex items-center gap-2 text-xs text-primary">
                   <AgentAvatar agentId="financial" size="sm" />
                   {language === 'sw' ? 'Mshauri wa Kifedha' : 'Financial Advisor'}
                 </div>
               </div>
             </div>
             <Button
-              className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700"
+              className="w-full sm:w-auto bg-primary hover:bg-primary/90"
               onClick={() => onNavigate('/connect-mpesa')}
             >
               {language === 'sw' ? 'Unganisha Sasa' : 'Connect Now'}
