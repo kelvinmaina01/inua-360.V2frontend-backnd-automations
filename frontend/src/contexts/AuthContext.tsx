@@ -217,6 +217,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const updated = await profileApi.update(user.id, updates, token);
       setUser(updated);
     } catch (error) {
+      console.error('Failed to update user profile:', error);
       // Fall back to local update in demo mode
       setUser({ ...user, ...updates });
     }
