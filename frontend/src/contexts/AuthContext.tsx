@@ -138,6 +138,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.error('Sign in error:', error);
+      console.error('Authentication failed for email:', email);
       // Fall back to demo mode if Firebase fails (no backend)
       setIsDemoMode(true);
       setUser(DEMO_USER);
@@ -168,6 +169,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.error('Sign up error:', error);
+      console.error('Registration failed for email:', email);
       // Fall back to demo mode if Firebase fails
       setIsDemoMode(true);
       setUser(DEMO_USER);
@@ -217,7 +219,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const updated = await profileApi.update(user.id, updates, token);
       setUser(updated);
     } catch (error) {
-      console.error('Failed to update user profile:', error);
       // Fall back to local update in demo mode
       setUser({ ...user, ...updates });
     }
